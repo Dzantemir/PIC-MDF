@@ -1,0 +1,21 @@
+{
+    "name": "dsPIC33FJ128MC804",
+    "vendor": "dsPIC33F (16-bit)",
+    "toolchain": "xc16",
+    "build": {
+        "device": "33FJ128MC804",
+        "family": "dsPIC33F (16-bit DSC)",
+        "f_cpu": "40000000UL",
+        "f_cpu_hz": 40000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 131072,
+            "ram": 16384,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 131072,
+        "protocol": "ipecmd"
+    }
+}

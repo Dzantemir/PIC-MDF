@@ -1,0 +1,1 @@
+{"name":"PIC32CX0525SG12144","vendor":"PIC32C (32-bit)","toolchain":"xc32","build":{"device":"PIC32CX0525SG12144","family":"PIC32CX-SG","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

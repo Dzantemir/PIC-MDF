@@ -1,0 +1,1 @@
+{"name":"dsPIC33CDV256MP206","vendor":"dsPIC33CD (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CDV256MP206","family":"dsPIC33CD-MP","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

@@ -1,0 +1,1 @@
+{"name":"dsPIC33CH512MP206S1","vendor":"dsPIC33CH (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CH512MP206S1","family":"dsPIC33CH-MP","extra_flags":[],"memory":{"flash":524288}},"upload":{"protocol":"ipecmd","maximum_size":524288}}

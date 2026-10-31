@@ -1,0 +1,1 @@
+{"name":"dsPIC33CK512MP705","vendor":"dsPIC33CK (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CK512MP705","family":"dsPIC33CK-MP","extra_flags":[],"memory":{"flash":524288}},"upload":{"protocol":"ipecmd","maximum_size":524288}}

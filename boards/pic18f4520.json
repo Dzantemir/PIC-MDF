@@ -1,0 +1,21 @@
+{
+    "name": "PIC18F4520",
+    "vendor": "PIC18 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC18F4520",
+        "family": "PIC18 (16-bit core)",
+        "f_cpu": "32000000UL",
+        "f_cpu_hz": 32000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 32768,
+            "ram": 1536,
+            "eeprom": 256
+        }
+    },
+    "upload": {
+        "maximum_size": 32768,
+        "protocol": "ipecmd"
+    }
+}

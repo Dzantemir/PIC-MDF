@@ -1,0 +1,1 @@
+{"name":"dsPIC33FJ256GP506A","vendor":"dsPIC33F (16-bit)","toolchain":"xc16","build":{"device":"dsPIC33FJ256GP506A","family":"dsPIC33F-GP-MC","extra_flags":[],"memory":{"flash":262144}},"upload":{"protocol":"ipecmd","maximum_size":262144}}

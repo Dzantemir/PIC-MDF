@@ -1,0 +1,1 @@
+{"name":"dsPIC30F2010","vendor":"dsPIC30 (16-bit)","toolchain":"xc16","build":{"device":"dsPIC30F2010","family":"dsPIC30F","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

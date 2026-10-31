@@ -1,0 +1,1 @@
+{"name":"PIC32WM_BZ6204","vendor":"PIC32C (32-bit)","toolchain":"xc32","build":{"device":"PIC32WM_BZ6204","family":"PIC32CX-BZ6","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

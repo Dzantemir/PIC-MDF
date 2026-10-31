@@ -1,0 +1,1 @@
+{"name":"dsPIC33CK32MP103","vendor":"dsPIC33CK (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CK32MP103","family":"dsPIC33CK-MP","extra_flags":[],"memory":{"flash":32768}},"upload":{"protocol":"ipecmd","maximum_size":32768}}

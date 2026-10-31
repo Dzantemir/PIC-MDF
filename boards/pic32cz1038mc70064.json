@@ -1,0 +1,1 @@
+{"name":"PIC32CZ1038MC70064","vendor":"PIC32CZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32CZ1038MC70064","family":"PIC32CZ-MC70","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

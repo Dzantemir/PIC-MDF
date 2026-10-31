@@ -1,0 +1,1 @@
+{"name":"PIC24FJ256GB610","vendor":"PIC24F (16-bit)","toolchain":"xc16","build":{"device":"PIC24FJ256GB610","family":"PIC24F-GA-GB","extra_flags":[],"memory":{"flash":262144}},"upload":{"protocol":"ipecmd","maximum_size":262144}}

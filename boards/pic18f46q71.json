@@ -1,0 +1,1 @@
+{"name":"PIC18F46Q71","vendor":"PIC18F (Q-series)","toolchain":"xc8","build":{"device":"PIC18F46Q71","family":"PIC18F-Q","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

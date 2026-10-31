@@ -1,0 +1,21 @@
+{
+    "name": "dsPIC33CK256MP508",
+    "vendor": "dsPIC33C (DSC)",
+    "toolchain": "xcdsc",
+    "build": {
+        "device": "33CK256MP508",
+        "family": "dsPIC33CK (DSC)",
+        "f_cpu": "100000000UL",
+        "f_cpu_hz": 100000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 262144,
+            "ram": 32768,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 262144,
+        "protocol": "ipecmd"
+    }
+}

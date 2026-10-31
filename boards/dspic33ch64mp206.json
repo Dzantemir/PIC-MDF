@@ -1,0 +1,1 @@
+{"name":"dsPIC33CH64MP206","vendor":"dsPIC33CH (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CH64MP206","family":"dsPIC33CH-MP","extra_flags":[],"memory":{"flash":65536}},"upload":{"protocol":"ipecmd","maximum_size":65536}}

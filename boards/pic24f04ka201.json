@@ -1,0 +1,1 @@
+{"name":"PIC24F04KA201","vendor":"PIC24F (16-bit)","toolchain":"xc16","build":{"device":"PIC24F04KA201","family":"PIC24F-KA-KL-KM","extra_flags":[],"memory":{"flash":4096}},"upload":{"protocol":"ipecmd","maximum_size":4096}}

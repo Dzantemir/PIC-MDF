@@ -1,0 +1,1 @@
+{"name":"dsPIC33EV32GM102","vendor":"dsPIC33EV (16-bit)","toolchain":"xc16","build":{"device":"dsPIC33EV32GM102","family":"dsPIC33EV-GM-00X-10X","extra_flags":[],"memory":{"flash":32768}},"upload":{"protocol":"ipecmd","maximum_size":32768}}

@@ -1,0 +1,1 @@
+{"name":"PIC24FJ512GU405","vendor":"PIC24F (16-bit)","toolchain":"xc16","build":{"device":"PIC24FJ512GU405","family":"PIC24F-GL-GU","extra_flags":[],"memory":{"flash":524288}},"upload":{"protocol":"ipecmd","maximum_size":524288}}

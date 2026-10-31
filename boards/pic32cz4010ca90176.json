@@ -1,0 +1,1 @@
+{"name":"PIC32CZ4010CA90176","vendor":"PIC32CZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32CZ4010CA90176","family":"PIC32CZ-CA90","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

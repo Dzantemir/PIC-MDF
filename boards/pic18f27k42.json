@@ -1,0 +1,1 @@
+{"name":"PIC18F27K42","vendor":"PIC18F (K-series)","toolchain":"xc8","build":{"device":"PIC18F27K42","family":"PIC18F-K","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

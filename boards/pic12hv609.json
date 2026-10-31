@@ -1,0 +1,1 @@
+{"name":"PIC12HV609","vendor":"PIC10/12 (8-bit)","toolchain":"xc8","build":{"device":"PIC12HV609","family":"PIC10-12Fxxx","extra_flags":[],"memory":{"flash":2048,"ram":64,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":2048}}

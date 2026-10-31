@@ -1,0 +1,1 @@
+{"name":"PIC32CZ5125CA70144","vendor":"PIC32CZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32CZ5125CA70144","family":"PIC32CZ-CA70","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

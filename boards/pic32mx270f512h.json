@@ -1,0 +1,1 @@
+{"name":"PIC32MX270F512H","vendor":"PIC32MX (32-bit)","toolchain":"xc32","build":{"device":"PIC32MX270F512H","family":"PIC32MX","extra_flags":[],"memory":{"flash":524288}},"upload":{"protocol":"ipecmd","maximum_size":524288}}

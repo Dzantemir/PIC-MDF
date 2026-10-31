@@ -1,0 +1,1 @@
+{"name":"PIC16LF73","vendor":"PIC16F (8-bit)","toolchain":"xc8","build":{"device":"PIC16LF73","family":"PIC16Fxxx","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

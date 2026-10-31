@@ -1,0 +1,1 @@
+{"name":"PIC16F767","vendor":"PIC16F (8-bit)","toolchain":"xc8","build":{"device":"PIC16F767","family":"PIC16Fxxx","extra_flags":[],"memory":{"flash":16384,"ram":368,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":16384}}

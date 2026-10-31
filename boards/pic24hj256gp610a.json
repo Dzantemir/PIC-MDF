@@ -1,0 +1,1 @@
+{"name":"PIC24HJ256GP610A","vendor":"dsPIC33F (16-bit)","toolchain":"xc16","build":{"device":"PIC24HJ256GP610A","family":"dsPIC33F-GP-MC","extra_flags":[],"memory":{"flash":262144}},"upload":{"protocol":"ipecmd","maximum_size":262144}}

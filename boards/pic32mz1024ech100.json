@@ -1,0 +1,1 @@
+{"name":"PIC32MZ1024ECH100","vendor":"PIC32MZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32MZ1024ECH100","family":"PIC32MZ-EC","extra_flags":[],"memory":{"flash":1048576}},"upload":{"protocol":"ipecmd","maximum_size":1048576}}

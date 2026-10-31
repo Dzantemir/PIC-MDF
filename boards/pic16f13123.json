@@ -1,0 +1,1 @@
+{"name":"PIC16F13123","vendor":"PIC16F1 (8-bit)","toolchain":"xc8","build":{"device":"PIC16F13123","family":"PIC16F1xxxx","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

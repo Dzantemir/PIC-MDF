@@ -1,0 +1,1 @@
+{"name":"PIC32AK1216GC41036","vendor":"PIC32 (32-bit)","toolchain":"xc32","build":{"device":"PIC32AK1216GC41036","family":"PIC32AK-GC","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

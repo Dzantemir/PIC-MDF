@@ -1,0 +1,1 @@
+{"name":"PIC32MZ1025DAR169","vendor":"PIC32MZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32MZ1025DAR169","family":"PIC32MZ-DA","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

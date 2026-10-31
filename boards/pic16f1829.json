@@ -1,0 +1,21 @@
+{
+    "name": "PIC16F1829",
+    "vendor": "PIC16 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC16F1829",
+        "family": "enhanced mid-range (14-bit)",
+        "f_cpu": "32000000UL",
+        "f_cpu_hz": 32000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 16384,
+            "ram": 1024,
+            "eeprom": 256
+        }
+    },
+    "upload": {
+        "maximum_size": 16384,
+        "protocol": "ipecmd"
+    }
+}

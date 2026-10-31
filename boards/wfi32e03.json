@@ -1,0 +1,1 @@
+{"name":"WFI32E03","vendor":"PIC32MZ (32-bit)","toolchain":"xc32","build":{"device":"WFI32E03","family":"PIC32MZ-W","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

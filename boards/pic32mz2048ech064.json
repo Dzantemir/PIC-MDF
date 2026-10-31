@@ -1,0 +1,1 @@
+{"name":"PIC32MZ2048ECH064","vendor":"PIC32MZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32MZ2048ECH064","family":"PIC32MZ-EC","extra_flags":[],"memory":{"flash":2097152}},"upload":{"protocol":"ipecmd","maximum_size":2097152}}

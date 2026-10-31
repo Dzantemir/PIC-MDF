@@ -1,0 +1,1 @@
+{"name":"PIC32CX1012BZ24032","vendor":"PIC32C (32-bit)","toolchain":"xc32","build":{"device":"PIC32CX1012BZ24032","family":"PIC32CX-BZ","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

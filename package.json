@@ -1,0 +1,879 @@
+{
+	"name": "pic-mdf",
+	"displayName": "PIC-MDF",
+	"description": "Microcontroller Development Framework — build, flash & configure Microchip PIC projects across FOUR architectures with ONE extension: 8-bit PIC (XC8), 16-bit PIC24/dsPIC33 (XC16), 32-bit PIC32M/PIC32C (XC32) and dsPIC33A/C/E/F + dsPIC30 (XC-DSC). Config bits, EEPROM, disassembly and a serial monitor from VS Code",
+	"version": "0.4.2",
+	"publisher": "Dzantemir",
+	"author": "Dzantemir",
+	"license": "MIT",
+	"homepage": "https://github.com/Dzantemir/pic-mdf#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Dzantemir/pic-mdf.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Dzantemir/pic-mdf/issues"
+	},
+	"icon": "media/extension-icon.png",
+	"galleryBanner": {
+		"color": "#141a24",
+		"theme": "dark"
+	},
+	"markdown": "github",
+	"qna": false,
+	"preview": false,
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"extensionKind": [
+		"workspace"
+	],
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": false,
+			"description": "Build, flash, debug and project hooks execute workspace code. Trust this workspace before enabling the extension."
+		},
+		"virtualWorkspaces": false
+	},
+	"categories": [
+		"Programming Languages",
+		"Debuggers",
+		"Other"
+	],
+	"keywords": [
+		"pic",
+		"microchip",
+		"xc8",
+		"xc16",
+		"xc32",
+		"xc-dsc",
+		"pic16",
+		"pic18",
+		"pic24",
+		"dspic",
+		"pic32",
+		"embedded",
+		"flash",
+		"config bits"
+	],
+	"main": "./src/extension.js",
+	"activationEvents": [
+		"onView:pic.projectView",
+		"onView:pic.memoryView",
+		"onView:pic.monitorView",
+		"onView:pic.devtoolsView",
+		"onView:pic.referenceView",
+		"workspaceContains:pic-project.json"
+	],
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "pic-explorer",
+					"title": "PIC-MDF",
+					"icon": "media/icon_mono.svg"
+				}
+			]
+		},
+		"views": {
+			"pic-explorer": [
+				{
+					"id": "pic.projectView",
+					"name": "Project & Commands",
+					"icon": "media/icon_mono.svg",
+					"contextualTitle": "Project & Commands (PIC-MDF)"
+				},
+				{
+					"id": "pic.memoryView",
+					"name": "Memory",
+					"type": "webview",
+					"icon": "media/icon_mono.svg",
+					"contextualTitle": "Memory (PIC-MDF)"
+				},
+				{
+					"id": "pic.monitorView",
+					"name": "Serial Monitor",
+					"type": "webview",
+					"icon": "media/icon_mono.svg",
+					"contextualTitle": "Serial Monitor (PIC-MDF)"
+				},
+				{
+					"id": "pic.devtoolsView",
+					"name": "Development Tools",
+					"icon": "media/icon_mono.svg",
+					"contextualTitle": "Development Tools (PIC-MDF)"
+				},
+				{
+					"id": "pic.referenceView",
+					"name": "XC Reference",
+					"icon": "media/icon_mono.svg",
+					"contextualTitle": "XC Reference (PIC-MDF)"
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "pic.build",
+				"title": "PIC: Build",
+				"icon": "$(tools)"
+			},
+			{
+				"command": "pic.flash",
+				"title": "PIC: Flash",
+				"icon": "$(zap)"
+			},
+			{
+				"command": "pic.clean",
+				"title": "PIC: Clean",
+				"icon": "$(trash)"
+			},
+			{
+				"command": "pic.openMonitor",
+				"title": "PIC: Open Serial Monitor",
+				"icon": "$(radio-tower)"
+			},
+			{
+				"command": "pic.monitor.start",
+				"title": "PIC: Start Monitor",
+				"icon": "$(play)"
+			},
+			{
+				"command": "pic.monitor.stop",
+				"title": "PIC: Stop Monitor",
+				"icon": "$(debug-stop)"
+			},
+			{
+				"command": "pic.monitor.clear",
+				"title": "PIC: Clear Monitor Output",
+				"icon": "$(clear-all)"
+			},
+			{
+				"command": "pic.monitor.refreshPorts",
+				"title": "PIC: Refresh Serial Ports",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "pic.createProject",
+				"title": "PIC: Create New Project",
+				"icon": "$(new-folder)"
+			},
+			{
+				"command": "pic.importProject",
+				"title": "PIC-MDF: Import Project…",
+				"icon": "$(desktop-download)"
+			},
+			{
+				"command": "pic.selectProject",
+				"title": "PIC: Select Project",
+				"icon": "$(folder)"
+			},
+			{
+				"command": "pic.clearProject",
+				"title": "PIC: Clear Project",
+				"icon": "$(close)"
+			},
+			{
+				"command": "pic.editProject",
+				"title": "PIC-MDF: Project Editor",
+				"icon": "$(edit)"
+			},
+			{
+				"command": "pic.syncLaunchConfigs",
+				"title": "PIC: Add Debug Configurations to launch.json",
+				"icon": "$(debug-alt)"
+			},
+			{
+				"command": "pic.generateTasks",
+				"title": "PIC: Regenerate tasks.json",
+				"icon": "$(sync)"
+			},
+			{
+				"command": "pic.showProblems",
+				"title": "PIC: Show Project Problems",
+				"icon": "$(warning)"
+			},
+			{
+				"command": "pic.selectBoard",
+				"title": "PIC: Select Board (MCU)",
+				"icon": "$(circuit-board)"
+			},
+			{
+				"command": "pic.manageBoards",
+				"title": "PIC-MDF: MCU Definitions (Board Manager)",
+				"icon": "$(circuit-board)"
+			},
+			{
+				"command": "pic.exportBoards",
+				"title": "PIC: Export User Boards (backup)",
+				"icon": "$(cloud-upload)"
+			},
+			{
+				"command": "pic.importBoards",
+				"title": "PIC: Import Boards from Backup…",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "pic.selectToolchain",
+				"title": "PIC: Select Compiler Folder…",
+				"icon": "$(folder-opened)"
+			},
+			{
+				"command": "pic.pack.installForProject",
+				"title": "PIC: Install Device Pack for This Project",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "pic.pack.installByName",
+				"title": "PIC: Install Device Pack by Name…",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "pic.pack.list",
+				"title": "PIC: Show Installed Device Packs",
+				"icon": "$(list-unordered)"
+			},
+			{
+				"command": "pic.pack.updateCatalog",
+				"title": "PIC: Update Device Pack Catalog (from the web)",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "pic.pack.openStore",
+				"title": "PIC: Open Device Pack Store Folder",
+				"icon": "$(folder-opened)"
+			},
+			{
+				"command": "pic.selectProgrammer",
+				"title": "PIC: Select Programmer",
+				"icon": "$(plug)"
+			},
+			{
+				"command": "pic.selectPort",
+				"title": "PIC: Select Port",
+				"icon": "$(plug)"
+			},
+			{
+				"command": "pic.configureIntelliSense",
+				"title": "PIC: Configure IntelliSense (C/C++)",
+				"icon": "$(lightbulb)"
+			},
+			{
+				"command": "pic.toggleBuildMode",
+				"title": "PIC: Toggle Build Mode (Release/Debug)",
+				"icon": "$(sync)"
+			},
+			{
+				"command": "pic.refreshMemory",
+				"title": "PIC: Refresh Memory Report",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "pic.config.open",
+				"title": "PIC: Open Configuration Bits Editor…",
+				"icon": "$(settings-gear)"
+			},
+			{
+				"command": "pic.eeprom.upload",
+				"title": "PIC: Upload EEPROM/Data Image to Chip",
+				"icon": "$(cloud-upload)"
+			},
+			{
+				"command": "pic.eeprom.download",
+				"title": "PIC: Download EEPROM/Data (Read from Chip)",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "pic.erase",
+				"title": "PIC: Chip Erase",
+				"icon": "$(zap)"
+			},
+			{
+				"command": "pic.showDisassembly",
+				"title": "PIC: Show Disassembly",
+				"icon": "$(file-code)"
+			},
+			{
+				"command": "pic.reference.insert",
+				"title": "PIC: Insert #include from the Reference…",
+				"icon": "$(add)"
+			},
+			{
+				"command": "pic.reference.doc",
+				"title": "PIC: Reference — Function Details…",
+				"icon": "$(book)"
+			},
+			{
+				"command": "pic.refresh",
+				"title": "PIC: Refresh",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "pic.collapseAll",
+				"title": "PIC: Collapse All",
+				"icon": "$(collapse-all)"
+			},
+			{
+				"command": "pic.openSettings",
+				"title": "PIC: Open Settings",
+				"icon": "$(settings-gear)"
+			},
+			{
+				"command": "pic.returnViews",
+				"title": "PIC: Return Views to the Sidebar",
+				"icon": "$(undo)",
+				"category": "PIC"
+			},
+			{
+				"command": "pic.component.new",
+				"title": "PIC: New Component…",
+				"icon": "$(add)"
+			},
+			{
+				"command": "pic.component.add",
+				"title": "PIC: Add Existing Component…",
+				"icon": "$(new-folder)"
+			},
+			{
+				"command": "pic.component.edit",
+				"title": "PIC: Edit Component",
+				"icon": "$(edit)"
+			},
+			{
+				"command": "pic.component.libs",
+				"title": "PIC: Prebuilt Libraries…",
+				"icon": "$(library)"
+			},
+			{
+				"command": "pic.component.delete",
+				"title": "PIC: Delete Component",
+				"icon": "$(trash)"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "pic.build",
+				"key": "ctrl+alt+b",
+				"mac": "cmd+alt+b",
+				"when": "!pic.busy"
+			},
+			{
+				"command": "pic.flash",
+				"key": "ctrl+alt+f",
+				"mac": "cmd+alt+f",
+				"when": "!pic.busy"
+			},
+			{
+				"command": "pic.clean",
+				"key": "ctrl+alt+c",
+				"mac": "cmd+alt+c",
+				"when": "!pic.busy"
+			},
+			{
+				"command": "pic.openMonitor",
+				"key": "ctrl+alt+m",
+				"mac": "cmd+alt+m"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "pic.refresh",
+					"when": "false"
+				},
+				{
+					"command": "pic.collapseAll",
+					"when": "false"
+				},
+				{
+					"command": "pic.component.delete",
+					"when": "false"
+				}
+			],
+			"view/title": [
+				{
+					"command": "pic.refresh",
+					"when": "view == pic.projectView",
+					"group": "navigation@1"
+				},
+				{
+					"command": "pic.collapseAll",
+					"when": "view == pic.projectView",
+					"group": "navigation@2"
+				},
+				{
+					"command": "pic.refreshMemory",
+					"when": "view == pic.memoryView",
+					"group": "navigation@1"
+				},
+				{
+					"command": "pic.monitor.clear",
+					"when": "view == pic.monitorView",
+					"group": "navigation@1"
+				},
+				{
+					"command": "pic.monitor.refreshPorts",
+					"when": "view == pic.monitorView",
+					"group": "navigation@2"
+				},
+				{
+					"command": "pic.refresh",
+					"when": "view == pic.devtoolsView",
+					"group": "navigation@1"
+				},
+				{
+					"command": "pic.refresh",
+					"when": "view == pic.referenceView",
+					"group": "navigation@1"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "pic.reference.insert",
+					"when": "view == pic.referenceView && viewItem == picRefInclude",
+					"group": "inline@1"
+				},
+				{
+					"command": "pic.reference.doc",
+					"when": "view == pic.referenceView && (viewItem == picRefEntry || viewItem == picRefInclude)",
+					"group": "inline@1"
+				},
+				{
+					"command": "pic.editProject",
+					"when": "view == pic.projectView && viewItem == projectItem",
+					"group": "inline@1"
+				},
+				{
+					"command": "pic.clearProject",
+					"when": "view == pic.projectView && viewItem == projectItem",
+					"group": "inline@2"
+				},
+				{
+					"command": "pic.component.libs",
+					"when": "view == pic.projectView && viewItem == componentsGroup",
+					"group": "inline@1"
+				},
+				{
+					"command": "pic.component.new",
+					"when": "view == pic.projectView && viewItem == componentsGroup",
+					"group": "inline@2"
+				},
+				{
+					"command": "pic.component.add",
+					"when": "view == pic.projectView && viewItem == componentsGroup",
+					"group": "1_components@1"
+				},
+				{
+					"command": "pic.component.libs",
+					"when": "view == pic.projectView && (viewItem == componentItem || viewItem == componentMain)",
+					"group": "inline@0"
+				},
+				{
+					"command": "pic.component.edit",
+					"when": "view == pic.projectView && (viewItem == componentItem || viewItem == componentMain || viewItem == componentSdk)",
+					"group": "inline@1"
+				},
+				{
+					"command": "pic.component.delete",
+					"when": "view == pic.projectView && viewItem == componentItem",
+					"group": "inline@2"
+				}
+			]
+		},
+		"taskDefinitions": [
+			{
+				"type": "pic",
+				"required": [],
+				"properties": {
+					"action": {
+						"type": "string",
+						"enum": [
+							"build",
+							"flash",
+							"clean"
+						],
+						"description": "Which PIC-MDF command the task runs (default: build)."
+					}
+				}
+			}
+		],
+		"problemMatchers": [
+			{
+				"name": "pic",
+				"owner": "cpp",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}"
+				],
+				"pattern": {
+					"regexp": "^(.+?):(\\d+):(?:(\\d+):)?\\s*(fatal error|error|warning):\\s*(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"message": 5
+				}
+			},
+			{
+				"name": "pic-ld",
+				"owner": "cpp",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}"
+				],
+				"pattern": {
+					"regexp": "^(.*?):(\\d+)\\s*:\\s*(.*)$",
+					"file": 1,
+					"line": 2,
+					"message": 3
+				}
+			}
+		],
+		"configuration": {
+			"title": "PIC-MDF",
+			"properties": {
+				"pic.rootPath": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "The Microchip compiler root that contains the toolchain subfolders (`xc8/v*`, `xc16/v*`, `xc32/v*`, `xc-dsc/v*`). Every toolchain is auto-detected below this root and on PATH. Leave empty for auto-detect; use **PIC: Select Compiler Folder** to pick it."
+				},
+				"pic.xc8.path": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "MPLAB XC8 (8-bit PIC) — the distribution root (with `bin/xc8-cc.exe`), the `bin` folder or the executable. Empty = auto-detect."
+				},
+				"pic.xc16.path": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "MPLAB XC16 (16-bit PIC24/dsPIC33) — root (with `bin/xc16-gcc.exe`), `bin` folder or the executable. Empty = auto-detect."
+				},
+				"pic.xc32.path": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "MPLAB XC32 (32-bit PIC32M/PIC32C) — root (with `bin/xc32-gcc.exe`), `bin` folder or the executable. Empty = auto-detect."
+				},
+				"pic.xcdsc.path": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "MPLAB XC-DSC (dsPIC33A/C/E/F + dsPIC30) — root (with `bin/xc-dsc-gcc.exe`), `bin` folder or the executable. Empty = auto-detect."
+				},
+				"pic.boardsDir": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"description": "Extra board JSON folder (priority: project .pic/boards → this → global ~/.pic-mdf/boards → built-in)."
+				},
+				"pic.externalSdkPath": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"description": "External SDK folder — scanned for lib/*.a and components/<subfolder>/ in addition to the project's own folders. A path inside the project is stored relative (portable); outside — absolute."
+				},
+				"pic.comPort": {
+					"type": "string",
+					"default": "",
+					"description": "Serial port (COM3 / /dev/ttyUSB0 …)."
+				},
+				"pic.programmer": {
+					"type": "string",
+					"default": "",
+					"description": "Default programmer id (ipecmd / pk3cmd / pk2cmd / nw_prog / custom …). The project's upload.programmer wins when set."
+				},
+				"pic.programmerHardware": {
+					"type": "string",
+					"default": "PK4",
+					"enum": [
+						"PK4",
+						"PK5",
+						"SNAP",
+						"ICD4",
+						"ICD5",
+						"RICE",
+						"PM3"
+					],
+					"markdownDescription": "Programmer hardware passed to `ipecmd -P` when the project's `upload.programmer` is `ipecmd` and `upload.hardware` is not set. E.g. PK4 / PK5 / SNAP / ICD4 / ICD5 / RICE (Real ICE) / PM3. (Previously read by flash.js but not declared.)"
+				},
+				"pic.shellPath": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"description": "Windows shell override (auto-detected otherwise; PowerShell / cmd / bash…)."
+				},
+				"pic.reuseTerminal": {
+					"type": "boolean",
+					"default": true,
+					"description": "Reuse the PIC terminal between commands."
+				},
+				"pic.incrementalBuild": {
+					"type": "boolean",
+					"default": true,
+					"description": "Incremental build for XC16 / XC32 / XC-DSC: reuse objects only when source/header content and compiler arguments match. XC8 uses a one-step full build. OFF = always recompile every source."
+				},
+				"pic.saveSettingsToWorkspace": {
+					"type": "boolean",
+					"default": true,
+					"description": "Save port / programmer etc. to the workspace settings."
+				},
+				"pic.autoHexBin": {
+					"type": "boolean",
+					"default": true,
+					"description": "Also produce .bin (and .eep/.hex where applicable) after build."
+				},
+				"pic.postBuildAction": {
+					"type": "string",
+					"default": "none",
+					"enum": [
+						"none",
+						"flash"
+					],
+					"enumDescriptions": [
+						"Do nothing after a successful build",
+						"Flash the firmware right after a successful build"
+					],
+					"description": "Action after a successful build."
+				},
+				"pic.buildMode": {
+					"type": "string",
+					"default": "release",
+					"enum": [
+						"release",
+						"debug"
+					],
+					"enumDescriptions": [
+						"Optimized build",
+						"Debug build (debug info + DEBUG define; -O0/-Og as the toolchain documents)"
+					],
+					"description": "Build mode."
+				},
+				"pic.autoInstallDfp": {
+					"type": "string",
+					"default": "ask",
+					"enum": [
+						"ask",
+						"always",
+						"never"
+					],
+					"enumDescriptions": [
+						"Prompt before downloading a missing Device Family Pack",
+						"Download missing packs automatically without prompting",
+						"Never download; warn only"
+					],
+					"description": "Behaviour when a build needs a Device Family Pack that is not installed."
+				},
+				"pic.memory.thresholdWarning": {
+					"type": "number",
+					"default": 85,
+					"description": "A memory area turns yellow at this percentage."
+				},
+				"pic.memory.historyLimit": {
+					"type": "number",
+					"default": 50,
+					"description": "Builds kept in the memory report history."
+				},
+				"pic.monitorBaud": {
+					"type": "number",
+					"default": 115200,
+					"description": "Default Serial Monitor baud rate."
+				},
+				"pic.monitorEol": {
+					"type": "string",
+					"default": "lf",
+					"enum": [
+						"lf",
+						"cr",
+						"crlf",
+						"none"
+					],
+					"description": "Send-line terminator."
+				},
+				"pic.monitorTimestamps": {
+					"type": "boolean",
+					"default": false,
+					"description": "Prefix received lines with a timestamp."
+				},
+				"pic.monitorAutoOpen": {
+					"type": "boolean",
+					"default": true,
+					"description": "Open the Serial Monitor after a successful flash."
+				},
+				"pic.debug.mdbPath": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"description": "Path to the Microchip MDB command-line debugger (mdb.exe / mdb.bat) or the simulator. Empty = look on PATH and next to the compilers."
+				},
+				"pic.debug.simPath": {
+					"type": "string",
+					"default": "",
+					"description": "Explicit simulator binary override (XC16 ships sim30; other families have no bundled simulator)."
+				},
+				"pic.debug.syncLaunchJson": {
+					"type": "boolean",
+					"default": true,
+					"description": "Merge the debug records into launch.json automatically (add-if-missing)."
+				},
+				"pic.intellisense.autoConfig": {
+					"type": "boolean",
+					"default": true,
+					"description": "Add the PIC IntelliSense configuration when missing."
+				},
+				"pic.autoGenerateTasks": {
+					"type": "boolean",
+					"default": true,
+					"description": "Merge the three PIC tasks into .vscode/tasks.json when a project becomes active (add-if-missing, silent)."
+				},
+				"pic.xc8.optimization": {
+					"type": "string",
+					"default": "default",
+					"enum": [
+						"default",
+						"0",
+						"1",
+						"2",
+						"3",
+						"s"
+					],
+					"description": "XC8 optimization (-O). default = the driver's own default."
+				},
+				"pic.xc8.cStandard": {
+					"type": "string",
+					"default": "c99",
+					"enum": [
+						"c90",
+						"c99"
+					],
+					"description": "C standard passed to xc8-cc (-std=)."
+				},
+				"pic.xc16.optimization": {
+					"type": "string",
+					"default": "1",
+					"enum": [
+						"0",
+						"1",
+						"2",
+						"3",
+						"s"
+					],
+					"description": "XC16 optimization (-O)."
+				},
+				"pic.xc32.optimization": {
+					"type": "string",
+					"default": "1",
+					"enum": [
+						"0",
+						"1",
+						"2",
+						"3",
+						"s"
+					],
+					"description": "XC32 optimization (-O)."
+				},
+				"pic.xcdsc.optimization": {
+					"type": "string",
+					"default": "1",
+					"enum": [
+						"0",
+						"1",
+						"2",
+						"3",
+						"s"
+					],
+					"description": "XC-DSC optimization (-O)."
+				},
+				"pic.warnings": {
+					"type": "boolean",
+					"default": true,
+					"description": "Pass -Wall to XC16 / XC32 / XC-DSC. Not used with XC8 (its driver controls warnings with -mwarn / -w; add them to pic.extraArgs)."
+				},
+				"pic.extraArgs": {
+					"type": "string",
+					"default": "",
+					"description": "Extra compiler arguments appended before the output (applies to the active toolchain)."
+				},
+				"pic.packStorePath": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "Where PIC-MDF installs Device Family Packs it downloads itself. Empty = `~/.pic-mdf/packs`. The extension also READS packs installed by MPLAB X in `~/.mchp_packs` — those are never re-downloaded. Use **PIC: Open Device Pack Store Folder** to reveal it."
+				},
+				"pic.dfpPath": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"default": "",
+					"markdownDescription": "Path to the Device Family Pack (DFP) for the active compiler. **Required by MPLAB XC8 v4.00+ (and newer XC16/XC32/XC-DSC): the device-support files are no longer shipped inside the compiler** — a DFP must be supplied via `-mdfp=`. Point this at the unpacked pack (the folder that contains an `xc8`/`xc16`/`xc32`/`xc-dsc` subfolder), e.g. `…/Microchip.PIC18Fxxxx_DFP/1.x.x`. Empty = auto-detect under the Microchip pack folders and MPLAB X's packs directory; if nothing is found the build explains exactly how to get one (https://packs.download.microchip.com/)."
+				}
+			}
+		},
+		"debuggers": [
+			{
+				"type": "pic",
+				"label": "PIC Debug (MDB · sim30)",
+				"languages": [
+					"c",
+					"cpp"
+				],
+				"initialConfigurations": [
+					{
+						"type": "pic",
+						"request": "launch",
+						"name": "PIC: Debug (MDB)"
+					}
+				],
+				"configurationSnippets": [
+					{
+						"label": "PIC: Debug on MDB / the simulator",
+						"description": "Drives the Microchip MDB command-line debugger (or the XC16 sim30 simulator) over the built ELF — breakpoints, stepping, variables. Requires an MDB installation; the command PIC: Add Debug Configurations to launch.json writes this record.",
+						"body": {
+							"type": "pic",
+							"request": "launch",
+							"name": "PIC: Debug (MDB)"
+						}
+					}
+				],
+				"configurationAttributes": {
+					"launch": {
+						"properties": {
+							"program": {
+								"type": "string",
+								"description": "Firmware ELF to load (default: the active project's build output)."
+							},
+							"mdbPath": {
+								"type": "string",
+								"description": "MDB executable override (default: pic.debug.mdbPath / auto-detect)."
+							},
+							"simPath": {
+								"type": "string",
+								"description": "Simulator executable override (XC16 sim30; default: pic.debug.simPath)."
+							},
+							"stopOnEntry": {
+								"type": "boolean",
+								"description": "Break on main() at start (default true)."
+							},
+							"cwd": {
+								"type": "string",
+								"description": "Working directory (default: the firmware's directory)."
+							}
+						}
+					}
+				}
+			}
+		]
+	},
+	"files": [
+		"src/**",
+		"media/**",
+		"boards/**",
+		"LICENSE.txt",
+		"readme.md",
+		"changelog.md"
+	],
+	"__metadata": {
+		"installedTimestamp": 1793353645463,
+		"targetPlatform": "undefined",
+		"size": 1432858
+	}
+}

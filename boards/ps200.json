@@ -1,0 +1,1 @@
+{"name":"PS200","vendor":"PIC12/16C (8-bit)","toolchain":"xc8","build":{"device":"PS200","family":"PIC12-16Cxxx","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

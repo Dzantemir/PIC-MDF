@@ -1,0 +1,1 @@
+{"name":"PIC32CZ8110CA80208","vendor":"PIC32CZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32CZ8110CA80208","family":"PIC32CZ-CA80","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

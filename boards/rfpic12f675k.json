@@ -1,0 +1,1 @@
+{"name":"rfPIC12F675K","vendor":"PIC12/16C (8-bit)","toolchain":"xc8","build":{"device":"rfPIC12F675K","family":"PIC12-16Cxxx","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

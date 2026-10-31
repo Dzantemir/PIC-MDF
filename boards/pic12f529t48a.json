@@ -1,0 +1,1 @@
+{"name":"PIC12F529T48A","vendor":"PIC10/12 (8-bit)","toolchain":"xc8","build":{"device":"PIC12F529T48A","family":"PIC10-12Fxxx","extra_flags":[],"memory":{"flash":3072,"ram":201,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":3072}}

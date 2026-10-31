@@ -1,0 +1,1 @@
+{"name":"PIC18F13K22","vendor":"PIC18F (K-series)","toolchain":"xc8","build":{"device":"PIC18F13K22","family":"PIC18F-K","extra_flags":[],"memory":{"flash":8192,"ram":256,"eeprom":256}},"upload":{"protocol":"ipecmd","maximum_size":8192}}

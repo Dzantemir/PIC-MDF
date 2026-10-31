@@ -1,0 +1,17 @@
+{
+    "name": "dsPIC33EP32GS202",
+    "vendor": "dsPIC33E (16-bit)",
+    "toolchain": "xc16",
+    "build": {
+        "device": "dsPIC33EP32GS202",
+        "family": "dsPIC33E-GS",
+        "extra_flags": [],
+        "memory": {
+            "flash": 32768
+        }
+    },
+    "upload": {
+        "protocol": "ipecmd",
+        "maximum_size": 32768
+    }
+}

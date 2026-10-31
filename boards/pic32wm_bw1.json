@@ -1,0 +1,1 @@
+{"name":"PIC32WM_BW1","vendor":"PIC32 (32-bit)","toolchain":"xc32","build":{"device":"PIC32WM_BW1","family":"PIC32WM","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

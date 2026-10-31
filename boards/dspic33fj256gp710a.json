@@ -1,0 +1,21 @@
+{
+    "name": "dsPIC33FJ256GP710A",
+    "vendor": "dsPIC33F (16-bit)",
+    "toolchain": "xc16",
+    "build": {
+        "device": "dsPIC33FJ256GP710A",
+        "family": "dsPIC33F",
+        "f_cpu": "80000000UL",
+        "f_cpu_hz": 80000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 262144,
+            "ram": 30720,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 262144,
+        "protocol": "ipecmd"
+    }
+}

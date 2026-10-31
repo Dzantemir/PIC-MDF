@@ -1,0 +1,1 @@
+{"name":"PIC32MM0256GPM036","vendor":"PIC32MM (32-bit)","toolchain":"xc32","build":{"device":"PIC32MM0256GPM036","family":"PIC32MM-GPM-0XX","extra_flags":[],"memory":{"flash":262144}},"upload":{"protocol":"ipecmd","maximum_size":262144}}

@@ -1,0 +1,1 @@
+{"name":"PIC32CM3204PL10028","vendor":"PIC32CM (32-bit)","toolchain":"xc32","build":{"device":"PIC32CM3204PL10028","family":"PIC32CM-PL","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

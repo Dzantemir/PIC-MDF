@@ -1,0 +1,1 @@
+{"name":"PIC18F87J10","vendor":"PIC18F (J-series)","toolchain":"xc8","build":{"device":"PIC18F87J10","family":"PIC18F-J","extra_flags":[],"memory":{"flash":131072,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":131072}}

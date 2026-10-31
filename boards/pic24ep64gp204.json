@@ -1,0 +1,17 @@
+{
+    "name": "PIC24EP64GP204",
+    "vendor": "PIC24 (16-bit)",
+    "toolchain": "xc16",
+    "build": {
+        "device": "PIC24EP64GP204",
+        "family": "dsPIC33E-GM-GP-MC-GU-MU",
+        "extra_flags": [],
+        "memory": {
+            "flash": 65536
+        }
+    },
+    "upload": {
+        "protocol": "ipecmd",
+        "maximum_size": 65536
+    }
+}

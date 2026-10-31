@@ -1,0 +1,1 @@
+{"name":"PIC16LF1784","vendor":"PIC12/16F1 (8-bit)","toolchain":"xc8","build":{"device":"PIC16LF1784","family":"PIC12-16F1xxx","extra_flags":[],"memory":{"flash":8192,"ram":512,"eeprom":256}},"upload":{"protocol":"ipecmd","maximum_size":8192}}

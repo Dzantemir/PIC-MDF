@@ -1,0 +1,21 @@
+{
+    "name": "PIC10F200",
+    "vendor": "PIC10 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC10F200",
+        "family": "baseline (12-bit)",
+        "f_cpu": "4000000UL",
+        "f_cpu_hz": 4000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 512,
+            "ram": 16,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 512,
+        "protocol": "ipecmd"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "PIC32MX470F512L",
+    "vendor": "PIC32MX (32-bit)",
+    "toolchain": "xc32",
+    "build": {
+        "device": "PIC32MX470F512L",
+        "family": "PIC32MX",
+        "f_cpu": "96000000UL",
+        "f_cpu_hz": 96000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 524288,
+            "ram": 131072,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 524288,
+        "protocol": "ipecmd"
+    }
+}

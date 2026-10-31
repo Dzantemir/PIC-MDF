@@ -1,0 +1,1 @@
+{"name":"PIC16C56","vendor":"PIC12/16C (8-bit)","toolchain":"xc8","build":{"device":"PIC16C56","family":"PIC12-16Cxxx","extra_flags":[],"memory":{"flash":2048,"ram":25,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":2048}}

@@ -1,0 +1,829 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';">
+<title>PIC-MDF — Project Editor</title>
+<style>
+:root{--bg:var(--vscode-editor-background);--fg:var(--vscode-editor-foreground);--fg2:var(--vscode-descriptionForeground);--fg3:var(--vscode-disabledForeground,var(--vscode-descriptionForeground));--ib:var(--vscode-input-background);--if:var(--vscode-input-foreground);--ibd:var(--vscode-input-border,var(--vscode-panel-border,#3e3e42));--bb:var(--vscode-button-background);--bf:var(--vscode-button-foreground);--b2:var(--vscode-button-secondaryBackground,#3a3d41);--bf2:var(--vscode-button-secondaryForeground,#fff);--bd:var(--vscode-widget-border,var(--vscode-panel-border,#3e3e42));--bd2:var(--vscode-panel-border,#3e3e42);--cb:var(--vscode-editorWidget-background,rgba(128,128,128,.04));--code:var(--vscode-textCodeBlock-background,rgba(110,118,129,.12));--accent:var(--vscode-charts-blue,#4daafc);--amber:#d9a03c;--focus-bd:var(--vscode-focusBorder,#007fd4);--tip-bg:var(--vscode-editorHoverWidget-background,var(--vscode-editorWidget-background,#252526));--tip-fg:var(--vscode-editorHoverWidget-foreground,var(--vscode-editorWidget-foreground,#ccc));--tip-bd:var(--vscode-editorHoverWidget-border,var(--bd))}
+*{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--fg)}b,strong{font-weight:600}body{font-family:var(--vscode-font-family);font-size:var(--vscode-font-size);padding:18px 20px 86px;max-width:920px;margin:0 auto}
+.page-hd{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--bd2)}.page-hd h1{font-size:18px;font-weight:600;margin:0 0 4px}.sub{font-size:12px;color:var(--fg2);line-height:1.5}.sub code,.hint code,.tip-pop code,.save-hint code{background:var(--code);padding:1px 4px;border-radius:3px;font-family:var(--vscode-editor-font-family)}
+.card{border:1px solid var(--bd);border-radius:8px;margin-bottom:13px;background:var(--cb);overflow:visible}.card-hd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--bd2);background:rgba(128,128,128,.035);font-size:13px;font-weight:600}.card-hd .ico{width:22px;height:22px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;background:var(--code);font-size:12px;font-weight:400;flex:0 0 auto}.card-hd b{font-weight:600;color:var(--fg)}.ct{font-size:11px;font-weight:400;color:var(--fg2)}.card-bd{padding:12px 14px}
+.accent-general{border-left:3px solid var(--accent)}.accent-defines{border-left:3px solid var(--vscode-charts-purple,#a374e8)}.accent-build{border-left:3px solid var(--vscode-charts-orange,#d28f1c)}.accent-sdk{border-left:3px solid var(--vscode-charts-green,#4ecf8b)}.accent-upload{border-left:3px solid var(--vscode-charts-blue,#4daafc)}.accent-hooks{border-left:3px solid var(--vscode-charts-red,#f14c4c)}
+.row{display:flex;gap:9px;margin-bottom:10px;align-items:center;flex-wrap:wrap}.row:last-child{margin-bottom:0}label{min-width:142px;flex:0 0 auto;font-size:12px;display:inline-flex;align-items:center;gap:4px;color:var(--fg)}input,textarea,select{background:var(--ib);color:var(--if);border:1px solid var(--ibd);padding:5px 8px;border-radius:4px;font-size:12px;width:100%;min-width:120px;font-family:var(--vscode-editor-font-family);transition:border-color .12s,box-shadow .12s}input:focus,textarea:focus,select:focus{outline:none;border-color:var(--focus-bd);box-shadow:0 0 0 1px var(--focus-bd)}input[readonly]{opacity:.85;cursor:default}.row>input,.row>select{flex:1;width:auto}textarea{min-height:56px;resize:vertical;line-height:1.5}textarea.short{min-height:40px}.path-picker{display:flex;gap:9px;align-items:stretch}.path-picker textarea{flex:1;min-width:0}.path-picker button{align-self:flex-start}.hint{font-size:11px;color:var(--fg2);margin-top:4px;line-height:1.5}.flderr{font-size:11px;color:#e5534b;margin-top:3px;line-height:1.5}.flderr:empty{display:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px 15px}.fld{display:flex;flex-direction:column;min-width:0;margin-bottom:9px}.fld label{min-width:0;margin-bottom:5px}
+.checkrow{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:5px 0 10px}.checkrow label{min-width:0;cursor:pointer}.checkrow input{width:14px;min-width:14px}
+.seg{display:inline-flex;border:1px solid var(--ibd);border-radius:5px;overflow:hidden;vertical-align:middle;flex-wrap:wrap}.seg-btn{background:transparent;color:var(--fg2);border:0;border-right:1px solid var(--ibd);border-radius:0;padding:5px 18px;font-size:12px;white-space:nowrap;cursor:pointer}.seg-btn:last-child{border-right:0}.seg-btn:hover:not(.active){background:rgba(128,128,128,.12)}.seg-btn.active{background:var(--bb);color:var(--bf);cursor:default}
+button{background:var(--bb);color:var(--bf);border:0;padding:6px 14px;border-radius:4px;cursor:pointer;font-size:12px;font-family:inherit;white-space:nowrap}button:hover{filter:brightness(1.08)}button:disabled{opacity:.45;cursor:not-allowed}button.sec{background:var(--b2);color:var(--bf2)}
+.hookrow{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px}.hookrow label{min-width:105px;padding-top:5px}.hookrow textarea{flex:1;min-width:100px;min-height:48px}.varbtn{align-self:flex-start;font-family:var(--vscode-editor-font-family)}
+.save-bar{position:fixed;left:0;right:0;bottom:0;padding:10px 20px;background:var(--vscode-editorWidget-background,var(--bg));border-top:1px solid var(--bd2);display:flex;align-items:center;gap:12px;z-index:100}.save-bar .hint{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55vw}.save-bar button{padding:7px 18px;font-size:13px}.save-bar .sp{flex:1}
+.notice{padding:8px 10px;border-radius:4px;background:var(--code);font-size:11px;color:var(--fg2);margin-bottom:10px}
+.tip{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;margin-left:3px;border-radius:50%;background:var(--vscode-badge-background,rgba(128,128,128,.35));color:var(--vscode-badge-foreground,var(--fg2));font-size:9px;font-weight:700;font-family:sans-serif;cursor:help;vertical-align:middle;position:relative;border:0;padding:0;flex:0 0 auto}.tip::before{content:'i';display:block;line-height:1}.tip-pop{display:none;position:absolute;left:20px;top:-10px;width:300px;max-width:60vw;padding:9px 11px;text-align:left;background:var(--tip-bg);color:var(--tip-fg);border:1px solid var(--tip-bd);border-radius:5px;box-shadow:0 4px 14px rgba(0,0,0,.4);font-size:11px;font-weight:400;line-height:1.5;z-index:500;white-space:normal;overflow-wrap:break-word}.tip-pop .tp-t{display:block;color:var(--fg);font-weight:600;margin-bottom:3px;font-size:11px}.tip-pop .tp-x{display:block;color:var(--fg2);font-size:11px}.tip-pop b{color:var(--fg);font-weight:600}.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}.tip.tip-end .tip-pop{left:auto;right:20px}
+.varpicker{position:fixed;z-index:1000;width:380px;min-width:280px;min-height:180px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);display:none;flex-direction:column;background:var(--vscode-editorWidget-background,#252526);border:1px solid var(--bd);border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.45);overflow:hidden}.varpicker .vp-search{margin:8px;width:calc(100% - 16px);flex:0 0 auto}.varlist{flex:1 1 auto;overflow-y:auto;min-height:40px;max-height:240px;padding:0 4px 4px}.vargroup{font-size:10px;color:var(--fg2);text-transform:uppercase;letter-spacing:.6px;padding:7px 8px 3px}.varitem{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:3px 8px;cursor:pointer;border-radius:3px}.varitem:hover{background:var(--vscode-list-hoverBackground,rgba(128,128,128,.14))}.varitem .vn{font-family:var(--vscode-editor-font-family);color:var(--accent);font-size:12px;white-space:nowrap}.varitem .vd{color:var(--fg2);font-size:11px;text-align:right}.vardetail{border-top:1px solid var(--bd);padding:6px 10px 14px;font-size:11px;color:var(--fg2);min-height:42px;background:rgba(128,128,128,.035);flex:0 0 auto}.vardetail .vd-name{color:var(--fg);font-size:12px;margin-bottom:2px;font-family:var(--vscode-editor-font-family)}
+.rs-v{position:absolute;left:0;right:0;bottom:0;height:12px;cursor:ns-resize;z-index:10}.rs-v::after{content:'';position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:40px;height:3px;border-radius:2px;background:var(--fg2);opacity:.55}.rs-v:hover::after{background:var(--accent);opacity:1}
+@media(max-width:720px){body{padding:12px 10px 90px}.grid2{grid-template-columns:1fr}label{min-width:110px}.path-picker{flex-wrap:wrap}.path-picker textarea{min-width:100%}.save-bar{padding:8px 10px}}
+/* Fixed path picker buttons: identical dimensions across AVR/PIC/SDCC. */
+.path-picker button.project-path-add {
+    box-sizing: border-box;
+    flex: 0 0 92px;
+    width: 92px; min-width: 92px; max-width: 92px;
+    height: 30px; min-height: 30px; max-height: 30px;
+    align-self: flex-start;
+    padding: 6px 10px;
+    font-size: 12px; line-height: 18px;
+    white-space: nowrap;
+}
+</style></head><body>
+<div class="page-hd"><h1>⚙️ PIC-MDF — Project Editor</h1><div class="sub">Configure how the project builds, links and flashes. Values are saved to <code>pic-project.json</code> at the project root (<code id="pFile"></code>). Hover any <b>ⓘ</b> for an explanation of the field.<br>Sources, include folders and prebuilt libraries are edited <b>per component</b> — sidebar → Project Folder → Components (<b>main</b> is the application). <button type="button" class="sec" id="openMain" style="padding:2px 9px;margin-left:4px">Open main…</button> <button type="button" class="sec" id="newComp" style="padding:2px 9px">New component…</button></div></div>
+<div id="cards">
+<!-- ─── General ─── -->
+<section class="card accent-general">
+ <header class="card-hd"><span class="ico">⚙️</span><b>General</b><span class="ct">project identity</span></header>
+ <div class="card-bd">
+  <div class="row"><label for="name">Project name</label><input id="name" placeholder="my-pic-project"></div>
+  <div class="row"><label for="board">Target MCU <span class="tip" tabindex="0" title="Target MCU"><span class="tip-pop"><span class="tp-t">MCU — the target chip</span><span class="tp-x">Pick-only: click <b>▾</b> to open the searchable dropdown — rows carry the human chip name (the id sits dimmed on the right, the current one in <b>bold</b>), hovering a row shows its characteristics in the bottom pane, and the filter matches id, name, vendor, device and toolchain. The line under the field always shows the characteristics of the selected MCU. The MCU fixes the compiler device flag, the flash/RAM/EEPROM budget and the default clock.</span></span></span></label><input id="board" readonly tabindex="-1" placeholder="pick an MCU via ▾"><button type="button" class="sec" id="boardBtn" title="Open the searchable MCU list (current one in bold)">▾</button></div>
+  <div class="hint" id="boardInfo"></div>
+  <div class="row"><label for="f_cpu_hz">Clock frequency override (Hz) <span class="tip" tabindex="0" title="Clock override"><span class="tip-pop"><span class="tp-t">Clock frequency override (Hz)</span><span class="tp-x">Optional project-level clock override. For XC8 this feeds <code>_XTAL_FREQ</code>; for XC16/XC-DSC it also feeds <code>FCY</code>. Leave blank to use the board profile default.</span></span></span></label><input id="f_cpu_hz" type="number" min="1" placeholder="blank = use MCU default"></div>
+  <div class="hint">Optional project-level clock override. Leave blank to use the board profile.</div>
+ </div>
+</section>
+<!-- ─── Defines ─── -->
+<section class="card accent-defines">
+ <header class="card-hd"><span class="ico">＃</span><b>Defines</b><span class="ct">preprocessor symbols (-D)</span></header>
+ <div class="card-bd">
+  <div class="fld"><label for="defines">Defines (one macro per line)</label><textarea id="defines" spellcheck="false" placeholder="USE_UART&#10;MY_FLAG=1"></textarea><div class="hint">Both <code>NAME</code> and <code>NAME=value</code> are accepted. Do not include the leading <code>-D</code>.</div></div>
+ </div>
+</section>
+<!-- ─── External SDK ─── -->
+<section class="card accent-sdk">
+ <header class="card-hd"><span class="ico">📦</span><b>External SDK</b><span class="ct">optional · shared libraries and components</span></header>
+ <div class="card-bd">
+  <div class="row"><input id="extSdk" placeholder="vendor/sdk — or /absolute/path/to/sdk"><button type="button" class="sec" id="pickSdk" title="Pick the SDK folder">📂 Browse…</button><button type="button" class="sec" id="clearSdk">Clear</button></div>
+  <div class="hint">Scans the SDK for <code>lib/*.a</code> and <code>components/&lt;name&gt;/</code>. A path inside the project is stored relatively; external paths are absolute. Saved to the <code>pic.externalSdkPath</code> setting, not to pic-project.json.</div>
+ </div>
+</section>
+<!-- ─── Build ─── -->
+<section class="card accent-build">
+ <header class="card-hd"><span class="ico">🛠️</span><b>Build</b><span class="ct">output · optimization · flags</span></header>
+ <div class="card-bd">
+  <div class="row"><label>Build mode</label><div class="seg" id="modeSeg" role="group" aria-label="Build mode"><button type="button" class="seg-btn mode-btn" data-mode="release" title="Optimized build">Release</button><button type="button" class="seg-btn mode-btn" data-mode="debug" title="Debug info + DEBUG define">Debug</button></div><span class="hint">Debug disables optimization and enables debug symbols. Applied immediately (a VS Code setting).</span></div>
+  <div class="grid2">
+   <div class="fld"><label for="output_name">Output name</label><div class="path-picker"><input id="output_name" placeholder="firmware  (variables: fw_${buildMode})"><button type="button" class="sec varbtn" data-target="output_name" title="Insert variable at cursor">${…}</button></div></div>
+   <div class="fld"><label for="output_dir">Output folder</label><div class="path-picker"><input id="output_dir" placeholder="build  (variables: build/${buildMode})"><button type="button" class="sec varbtn" data-target="output_dir" title="Insert variable at cursor">${…}</button></div><div class="hint">Optional. Where the build artefacts go, relative to the project; empty = <code>build</code>. Must be a real subfolder (Clean deletes it).</div></div>
+   <div class="fld"><label for="dfp">Device Family Pack path (DFP)</label><div class="path-picker"><input id="dfp" placeholder="optional; auto-detected"><button type="button" class="sec" id="pickDfp" title="Pick the toolchain-specific DFP folder">Browse…</button></div><div class="hint">Choose the toolchain-specific folder inside the unpacked device pack when automatic detection fails.</div></div>
+   <div class="fld"><label for="optimization">Optimization override</label><select id="optimization"></select></div>
+  </div>
+  <div class="checkrow"><label><input type="checkbox" id="gc_sections"> Remove unused sections (gc-sections)</label><label><input type="checkbox" id="lto"> Link-time optimization (LTO)</label></div>
+  <div class="grid2">
+   <div class="fld"><label for="c_flags">C flags</label><textarea id="c_flags" class="short" placeholder="One compiler argument per line"></textarea></div>
+   <div class="fld"><label for="cxx_flags">C++ flags</label><textarea id="cxx_flags" class="short" placeholder="One compiler argument per line"></textarea></div>
+   <div class="fld"><label for="asm_flags">Assembly flags</label><textarea id="asm_flags" class="short" placeholder="One compiler argument per line"></textarea></div>
+   <div class="fld"><label for="link_flags">Linker flags</label><textarea id="link_flags" class="short" placeholder="One linker argument per line"></textarea></div>
+   <div class="fld"><label for="extra_flags">Additional flags</label><textarea id="extra_flags" class="short" placeholder="One argument per line"></textarea></div>
+  </div>
+  <div class="hint">Compiler flags are passed to the active XC toolchain. XC8 compiles and links in one driver call, so its C/C++/assembly flags are shared; gc-sections and LTO apply to GCC-like XC16/XC32/XC-DSC builds where supported.</div>
+ </div>
+</section>
+<!-- ─── Upload ─── -->
+<section class="card accent-upload">
+ <header class="card-hd"><span class="ico">⚡</span><b>Upload</b><span class="ct">programmer · port · connection</span></header>
+ <div class="card-bd">
+  <div class="grid2">
+   <div class="fld"><label for="programmer">Programmer</label><select id="programmer"></select></div>
+   <div class="fld"><label for="hardware">Hardware</label><input id="hardware" placeholder="PK4 / SNAP / ICD4 …"></div>
+   <div class="fld"><label for="port">Port</label><input id="port" placeholder="COM3 / /dev/ttyUSB0"></div>
+   <div class="fld"><label for="uploadTool">Custom tool</label><div class="path-picker"><input id="uploadTool" placeholder="optional executable"><button type="button" class="sec varbtn" data-target="uploadTool" title="Insert variable at cursor">${…}</button></div></div>
+  </div>
+  <div class="fld"><label for="uploadArgs">Additional programmer arguments</label><div class="path-picker"><textarea id="uploadArgs" class="short" placeholder="One argument per line"></textarea><button type="button" class="sec varbtn" data-target="uploadArgs" title="Insert variable at cursor">${…}</button></div></div>
+  <div class="checkrow"><label><input type="checkbox" id="eeprom"> Include EEPROM/data image when supported</label></div>
+ </div>
+</section>
+<!-- ─── Hooks ─── -->
+<section class="card accent-hooks">
+ <header class="card-hd"><span class="ico">⌘</span><b>Hooks</b><span class="ct">commands around build &amp; flash</span></header>
+ <div class="card-bd">
+  <div class="notice">Hooks run through the platform shell. One command per line (they run in order; a non-zero exit stops the pipeline). Click <b>${…}</b> next to a field to insert a variable at the cursor (grouped &amp; searchable).</div>
+  <div class="hookrow"><label>pre_build</label><textarea id="hook_pre_build" style="min-height:34px" placeholder="python ${workspaceFolder}/tools/gen_version.py"></textarea><button type="button" class="sec varbtn" data-target="hook_pre_build" title="Insert variable at cursor">${…}</button></div>
+  <div class="hookrow"><label>post_link</label><textarea id="hook_post_link" style="min-height:34px"></textarea><button type="button" class="sec varbtn" data-target="hook_post_link" title="Insert variable at cursor">${…}</button></div>
+  <div class="hookrow"><label>post_build</label><textarea id="hook_post_build" style="min-height:34px" placeholder="python crc.py ${outputHex}"></textarea><button type="button" class="sec varbtn" data-target="hook_post_build" title="Insert variable at cursor">${…}</button></div>
+  <div class="hookrow"><label>pre_upload</label><textarea id="hook_pre_upload" style="min-height:34px"></textarea><button type="button" class="sec varbtn" data-target="hook_pre_upload" title="Insert variable at cursor">${…}</button></div>
+  <div class="hookrow"><label>post_upload</label><textarea id="hook_post_upload" style="min-height:34px"></textarea><button type="button" class="sec varbtn" data-target="hook_post_upload" title="Insert variable at cursor">${…}</button></div>
+ </div>
+</section>
+</div>
+<div class="save-bar"><span class="hint save-hint">writes <code>pic-project.json</code> at the project root (Build mode and the SDK folder go to VS Code settings)</span><span class="sp"></span><button type="button" id="save">💾 Save</button></div>
+<!-- ─── overlays: variable picker + board menu (the sdcc-mdf design) ─── -->
+<div id="varPicker" class="varpicker"><input class="vp-search" id="varSearch" placeholder="Type to filter…  (Enter inserts the first match · Esc closes)"><div id="varList" class="varlist"></div><div id="varDetail" class="vardetail">Hover a variable for its description — click to insert at cursor.</div></div>
+<div id="boardMenu" class="varpicker"><input class="vp-search" id="boardSearch" placeholder="Filter MCUs…  (Enter selects · Esc closes)"><div id="boardList" class="varlist"></div><div id="boardDetail" class="vardetail">Hover an MCU for its characteristics — click to select it as the project target.</div></div>
+<script>
+(function () {
+ const vscode = acquireVsCodeApi();
+ let proj = null, boards = [], currentState = null;
+ let initOk = true;
+ let comPort = '', extSdk = '', dfpPath = '';
+ const $ = id => document.getElementById(id);
+ const val = id => String($(id).value == null ? '' : $(id).value).trim();
+ const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+ const arr = v => Array.isArray(v) ? v : [];
+ const lineOf = v => typeof v === 'string' ? v : JSON.stringify(v);
+ const arrLines = v => arr(v).map(lineOf).filter(x => x !== '').join('\n');
+ const defineLines = v => arr(v).map(x => typeof x === 'string' ? x : (x && typeof x === 'object' && x.name ? x.name + (x.value !== undefined ? '=' + x.value : '') : '')).filter(Boolean).join('\n');
+
+ function parseLines(id) { const t = val(id); return t ? t.split('\n').map(s => s.trim()).filter(Boolean) : []; }
+ function lines(id) { return parseLines(id); }
+
+ // null for missing/invalid — the characteristics line drops the segment
+ function fmtBytes(n) { const v = Number(n); if (!Number.isFinite(v) || v <= 0) return null; if (v >= 1024 && v % 1024 === 0) return String(v / 1024) + 'K'; return String(v); }
+ function fmtMhz(hz) { const v = Number(hz); if (!Number.isFinite(v) || v <= 0) return ''; return String(Math.round(v / 1e4) / 100) + ' MHz'; }
+
+ // ── init-failure / unreadable-config guard ──
+ function setSaveDisabled(msg) {
+  initOk = false;
+  const btn = $('save'); if (btn) btn.disabled = true;
+  const hint = document.querySelector('.save-hint'); if (hint) hint.textContent = msg;
+ }
+ function setSaveEnabled() {
+  initOk = true;
+  const btn = $('save'); if (btn) btn.disabled = false;
+  const hint = document.querySelector('.save-hint');
+  if (hint) hint.innerHTML = 'writes <code>pic-project.json</code> at the project root (Build mode and the SDK folder go to VS Code settings)';
+ }
+
+ // ── MCU characteristics (one formatter feeds both consumers) ──
+ function boardInfoHtml(b, forHover) {
+  const parts = ['<b>' + esc(b.name || b.id) + '</b>'];
+  if (b.device) parts.push('<code>' + esc(b.device) + '</code>');
+  const flash = fmtBytes(b.flash); if (flash) parts.push('flash ' + esc(flash) + 'B');
+  const ram = fmtBytes(b.ram); if (ram) parts.push('RAM ' + esc(ram) + 'B');
+  const ep = fmtBytes(b.eeprom); if (ep) parts.push('EEPROM ' + esc(ep) + 'B');
+  const mhz = fmtMhz(b.f_cpu_hz); if (mhz) parts.push(esc(mhz));
+  if (b.family) parts.push(esc(b.family));
+  if (b.toolchain) parts.push(esc(b.toolchain));
+  if (forHover && b.vendor) parts.push(esc(b.vendor));
+  return parts.join(' · ');
+ }
+ function boardById(id) { const k = String(id || '').trim().toLowerCase(); return boards.find(x => String(x.id).toLowerCase() === k) || null; }
+ function updateBoardInfo() {
+  const el = $('boardInfo'); if (!el) return;
+  const id = val('board');
+  const b = boardById(id);
+  if (b) {
+   el.innerHTML = boardInfoHtml(b) + ' — the compiler is picked automatically from the MCU · <b>click ▾</b> to change';
+  } else if (id) {
+   el.innerHTML = esc(id) + ' — not in the MCU database; the build uses the raw device name. Add the board in the Board Manager (PIC: MCU Definitions) for its sizes and flags.';
+  } else {
+   el.innerHTML = 'click <b>▾</b> to pick the MCU — the filter matches id, name, vendor, device and toolchain; hover a row for its characteristics.';
+  }
+ }
+ function showBoardDetail(b) { const det = $('boardDetail'); if (!det) return; det.innerHTML = boardInfoHtml(b, true); }
+
+ // ── Programmer select (raw option for hand-written ids) ──
+ function buildProgrammerSelect() {
+  const sel = $('programmer');
+  let opts = '';
+  for (const x of ['ipecmd', 'pk3cmd', 'pk2cmd', 'nw_prog', 'custom']) {
+   opts += '<option value="' + esc(x) + '">' + esc(x) + '</option>';
+  }
+  sel.innerHTML = opts;
+  sel.onchange = () => {};
+ }
+
+ // ── Optimization select (raw option for hand-written values) ──
+ function buildOptimizationSelect() {
+  const sel = $('optimization');
+  if (!sel) return;
+  let opts = '<option value="">Use global setting</option>';
+  for (const x of ['0', '1', '2', '3', 's']) {
+   opts += '<option value="' + x + '">' + (x === 's' ? 'Size (-Os)' : '-O' + x) + '</option>';
+  }
+  sel.innerHTML = opts;
+ }
+
+ // ── Board menu overlay (the sdcc-mdf design: flat searchable list) ──
+ function buildBoardList(filter) {
+  const list = $('boardList');
+  list.innerHTML = '';
+  const q = (filter || '').trim().toLowerCase();
+  const cur = val('board').trim().toLowerCase();
+  let first = null;
+  for (const b of boards) {
+   if (q && !(
+    String(b.id).toLowerCase().includes(q) ||
+    String(b.name || '').toLowerCase().includes(q) ||
+    String(b.vendor || '').toLowerCase().includes(q) ||
+    String(b.device || '').toLowerCase().includes(q) ||
+    String(b.toolchain || '').toLowerCase().includes(q))) continue;
+   const row = document.createElement('div');
+   row.className = 'varitem';
+   const n = document.createElement('span');
+   n.className = 'vn';
+   n.textContent = b.name || b.id;
+   if (String(b.id).toLowerCase() === cur) n.style.fontWeight = '700';
+   const d = document.createElement('span');
+   d.className = 'vd';
+   d.textContent = String(b.id).toLowerCase() === cur ? 'current' : (b.id || '');
+   row.appendChild(n); row.appendChild(d);
+   row.addEventListener('click', () => pickBoardId(b.id));
+   row.addEventListener('mouseover', () => { showBoardDetail(b); });
+   list.appendChild(row);
+   if (!first) first = row;
+  }
+  if (!list.children.length) {
+   const none = document.createElement('div');
+   none.className = 'vargroup';
+   none.textContent = 'No MCU matches "' + q + '" — clear the filter to see the full list, or add the board in the Board Manager';
+   list.appendChild(none);
+  }
+  return first;
+ }
+ function pickBoardId(id) {
+  $('board').value = id;
+  updateBoardInfo();
+  closeBoardMenu();
+  $('board').focus();
+ }
+
+ // ── unified menu placement (the sdcc-mdf pattern) ──
+ function placeMenu(p, anchor, fitWidth) {
+  const M = 12;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  p.style.maxHeight = ''; p.style.minHeight = ''; p.style.top = ''; p.style.left = '';
+  p.style.width = ''; p.style.minWidth = '';
+  if (fitWidth) {
+   const rw = Math.max(anchor.width, 220);
+   p.style.width = rw + 'px'; p.style.minWidth = rw + 'px';
+   const w = p.offsetWidth, h = p.offsetHeight;
+   const GAP_V = 4;
+   let left = anchor.left;
+   if (left + w > vw - M) left = vw - M - w;
+   if (left < M) left = M;
+   p.style.left = left + 'px';
+   const belowTop = anchor.bottom + GAP_V;
+   const spaceBelow = vh - M - belowTop;
+   const spaceAbove = anchor.top - GAP_V - M;
+   let top, cap;
+   if (h <= spaceBelow) { top = belowTop; cap = h; }
+   else if (h <= spaceAbove) { top = anchor.top - GAP_V - h; cap = h; }
+   else if (spaceBelow >= spaceAbove) { top = belowTop; cap = spaceBelow; }
+   else { top = M; cap = spaceAbove; }
+   p.style.maxHeight = cap + 'px';
+   p.style.minHeight = Math.min(180, cap) + 'px';
+   p.style.top = top + 'px';
+  } else {
+   const GAP_H = 8;
+   const w = p.offsetWidth, h = p.offsetHeight;
+   let left = anchor.left - w - GAP_H;
+   if (left < M) left = M;
+   p.style.left = left + 'px';
+   const fitsDown = (anchor.top + h) <= vh - M;
+   let top, cap;
+   if (fitsDown) { top = anchor.top; cap = vh - M - top; }
+   else { top = anchor.bottom - h; cap = anchor.bottom - M; if (top < M) top = M; }
+   p.style.maxHeight = cap + 'px';
+   p.style.minHeight = Math.min(180, cap) + 'px';
+   p.style.top = top + 'px';
+  }
+ }
+ function clampMenu(p) {
+  const M = 12, vw = window.innerWidth, vh = window.innerHeight;
+  const w = p.offsetWidth, h = p.offsetHeight;
+  let left = p.offsetLeft, top = p.offsetTop;
+  if (left + w > vw - M) left = Math.max(M, vw - M - w);
+  if (top + h > vh - M) top = Math.max(M, vh - M - h);
+  p.style.left = left + 'px'; p.style.top = top + 'px';
+ }
+ function makeResizable(p) {
+  const h = document.createElement('div');
+  h.className = 'rs-v';
+  h.title = 'Drag to resize the list height';
+  p.appendChild(h);
+  h.addEventListener('mousedown', e => {
+   e.preventDefault(); e.stopPropagation();
+   const sy = e.clientY; const sh = p.offsetHeight;
+   p.style.maxHeight = '';
+   const list = p.querySelector('.varlist');
+   if (list) list.style.maxHeight = 'none';
+   const move = ev => {
+    const hh = Math.min(Math.max(sh + ev.clientY - sy, 180), window.innerHeight - 24);
+    p.style.height = hh + 'px';
+    clampMenu(p);
+   };
+   const up = () => {
+    document.removeEventListener('mousemove', move);
+    document.removeEventListener('mouseup', up);
+   };
+   document.addEventListener('mousemove', move);
+   document.addEventListener('mouseup', up);
+  });
+ }
+ makeResizable($('varPicker'));
+ makeResizable($('boardMenu'));
+
+ function openBoardMenu() {
+  buildBoardList('');
+  $('boardMenu').style.display = 'flex';
+  placeMenu($('boardMenu'), $('board').getBoundingClientRect(), true);
+  const inp = $('boardSearch');
+  inp.value = ''; inp.focus();
+ }
+ function closeBoardMenu() { $('boardMenu').style.display = 'none'; }
+
+ $('boardBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  if ($('boardMenu').style.display === 'flex') closeBoardMenu(); else openBoardMenu();
+ });
+ $('board').addEventListener('input', updateBoardInfo);
+ $('board').addEventListener('click', () => {
+  if ($('boardMenu').style.display === 'flex') closeBoardMenu(); else openBoardMenu();
+ });
+ $('boardSearch').addEventListener('input', e => buildBoardList(e.target.value));
+ $('boardSearch').addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+   const first = buildBoardList(e.target.value);
+   if (first) first.click();
+  } else if (e.key === 'Escape') {
+   closeBoardMenu();
+   $('board').focus();
+  }
+ });
+ document.addEventListener('click', e => {
+  if ($('boardMenu').style.display !== 'flex') return;
+  if ($('boardMenu').contains(e.target)) return;
+  if (e.target === $('boardBtn') || e.target === $('board')) return;
+  closeBoardMenu();
+ }, true);
+ document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('boardMenu').style.display === 'flex') closeBoardMenu();
+ });
+ document.addEventListener('scroll', e => {
+  if ($('boardMenu').style.display !== 'flex') return;
+  if (e.target && $('boardMenu').contains(e.target)) return;
+  closeBoardMenu();
+ }, true);
+ window.addEventListener('resize', () => closeBoardMenu());
+
+ // ── ${…} variable picker (REAL pic-mdf variables only) ──
+ const VARS = [
+ ['Project', [
+  ['workspaceFolder', 'project root', 'Absolute path of the project folder.'],
+  ['workspaceFolderBasename', 'folder name', 'Name of the project folder without the path — e.g. my-pic-project.'],
+  ['project.name', 'from config', 'The "name" field of pic-project.json; falls back to the folder name.'],
+  ['project.root', 'project root', 'Same as workspaceFolder.'],
+ ]],
+ ['Outputs', [
+  ['outputDir', 'build/ path', 'Absolute path of the output directory (after ${…} expansion).'],
+  ['outputName', 'firmware name', 'Output name without extension (default: firmware).'],
+  ['outputElf', '.elf', 'Linked ELF — the debugger wants this one.'],
+  ['outputHex', '.hex', 'Intel HEX — what the programmer flashes.'],
+  ['outputBin', '.bin', 'Raw binary (objcopy -O binary).'],
+  ['outputMap', '.map', 'Linker map file.'],
+ ]],
+ ['Board', [
+  ['board.id', 'board id', 'The MCU profile id from pic-project.json — e.g. pic16f877a.'],
+  ['board.device', 'device name', 'The exact device name passed to the compiler — e.g. PIC16F877A / 32MX795F512L.'],
+  ['board.name', 'display name', 'Human-readable MCU name.'],
+  ['board.family', 'family', 'e.g. mid-range (14-bit), PIC32MX (MIPS M4K)…'],
+  ['board.fcpu', 'frequency', 'build.f_cpu from the board definition — e.g. 20000000UL.'],
+  ['board.flash', 'flash bytes', 'Flash size of the selected MCU.'],
+  ['board.ram', 'RAM bytes', 'SRAM size of the selected MCU.'],
+  ['board.eeprom', 'EEPROM bytes', 'Data EEPROM size of the selected MCU.'],
+ ]],
+ ['Build', [
+  ['buildMode', 'release / debug', 'The pic.buildMode setting — debug compiles -O0 -g + __DEBUG/DEBUG.'],
+  ['toolchain', 'xc8/xc16/xc32/xcdsc', 'The compiler chosen automatically from the MCU.'],
+ ]],
+ ['Git', [
+  ['git:hash', 'short hash', 'git rev-parse --short HEAD — empty outside a repo. Great for version stamps: fw_${git:hash}.hex'],
+  ['git:branch', 'branch', 'Current git branch name.'],
+ ]],
+ ['Date & time', [
+  ['date', 'YYYY-MM-DD', 'Filename-safe date.'],
+  ['time', 'HH-MM-SS', 'Filename-safe time (colons are replaced with dashes — Windows-safe).'],
+  ['datetime', 'date_time', 'YYYY-MM-DD_HH-MM-SS.'],
+  ['unixtime', 'epoch seconds', 'Seconds since 1970-01-01.'],
+ ]],
+ ['System', [
+  ['pathSeparator', '\\ or /', 'path.sep — build cross-platform paths.'],
+  ['userHome', 'home dir', 'User home directory.'],
+ ]],
+ ['Config & environment', [
+  ['config:comPort', 'pic.comPort', 'Serial port selected via PIC: Select Port.'],
+  ['config:buildMode', 'pic.buildMode', 'release / debug — pairs with build/${config:buildMode} output dirs.'],
+  ['config:SETTING', 'any setting', 'Any VS Code setting — short keys resolve in the pic.* namespace, full dotted ids work too. SETTING is selected after insert.', 9, 16],
+  ['env:NAME', 'environment var', 'Any environment variable. NAME is selected after insert — just type over it. Unset variables stay literal.', 6, 10],
+ ]],
+ ];
+ const VAR_TARGETS = ['output_name', 'output_dir', 'hook_pre_build', 'hook_post_link', 'hook_post_build', 'hook_pre_upload', 'hook_post_upload', 'uploadTool', 'uploadArgs'];
+ let varTarget = null;
+ const varCursor = {};
+ for (const id of VAR_TARGETS) {
+  const el = $(id);
+  if (!el) continue;
+  const upd = () => { varCursor[id] = [el.selectionStart, el.selectionEnd]; };
+  el.addEventListener('keyup', upd);
+  el.addEventListener('click', upd);
+  el.addEventListener('select', upd);
+  el.addEventListener('input', upd);
+ }
+ function buildVarList(filter) {
+  const list = $('varList');
+  list.innerHTML = '';
+  const q = (filter || '').trim().toLowerCase();
+  let first = null;
+  for (const entry of VARS) {
+   const items = entry[1].filter(it => !q || it[0].toLowerCase().includes(q) || (it[1] || '').toLowerCase().includes(q));
+   if (!items.length) continue;
+   const g = document.createElement('div');
+   g.className = 'vargroup';
+   g.textContent = entry[0];
+   list.appendChild(g);
+   for (const it of items) {
+    const row = document.createElement('div');
+    row.className = 'varitem';
+    const n = document.createElement('span');
+    n.className = 'vn';
+    n.textContent = '${' + it[0] + '}';
+    const d = document.createElement('span');
+    d.className = 'vd';
+    d.textContent = it[1] || '';
+    row.appendChild(n); row.appendChild(d);
+    row.addEventListener('click', () => insertVar(it[0], it[3], it[4]));
+    row.addEventListener('mouseover', () => showVarDetail(it));
+    list.appendChild(row);
+    if (!first) first = row;
+   }
+  }
+  if (!list.children.length) {
+   const none = document.createElement('div');
+   none.className = 'vargroup';
+   none.textContent = 'No variables match the filter';
+   list.appendChild(none);
+  }
+  return first;
+ }
+ function showVarDetail(it) {
+  const d = $('varDetail');
+  d.innerHTML = '';
+  const nm = document.createElement('div');
+  nm.className = 'vd-name';
+  nm.textContent = '${' + it[0] + '}';
+  const ds = document.createElement('div');
+  ds.textContent = it[2] || '';
+  d.appendChild(nm); d.appendChild(ds);
+ }
+ function openVarPicker(btn) {
+  const p = $('varPicker');
+  const target = btn.getAttribute('data-target');
+  const wasOpen = getComputedStyle(p).display !== 'none';
+  if (wasOpen && varTarget === target) { closeVarPicker(); return; }
+  varTarget = target;
+  buildVarList('');
+  p.style.display = 'flex';
+  placeMenu(p, btn.getBoundingClientRect(), false);
+  const inp = $('varSearch');
+  inp.value = ''; inp.focus();
+ }
+ function closeVarPicker(refocus) {
+  const p = $('varPicker');
+  const wasOpen = getComputedStyle(p).display !== 'none';
+  p.style.display = 'none';
+  if (wasOpen && refocus !== false && varTarget) {
+   const el = $(varTarget);
+   if (el) el.focus();
+  }
+ }
+ function insertVar(name, selA, selB) {
+  const el = varTarget ? $(varTarget) : null;
+  closeVarPicker(false);
+  if (!el) return;
+  const token = '${' + name + '}';
+  const pos = varCursor[varTarget];
+  const s = pos ? pos[0] : el.value.length;
+  const e = pos ? pos[1] : s;
+  const st = el.scrollTop;
+  el.value = el.value.slice(0, s) + token + el.value.slice(e);
+  el.focus();
+  let ns, ne;
+  if (typeof selA === 'number' && typeof selB === 'number') { ns = s + selA; ne = s + selB; }
+  else { ns = ne = s + token.length; }
+  el.setSelectionRange(ns, ne);
+  varCursor[varTarget] = [ns, ne];
+  el.scrollTop = st;
+ }
+ $('varSearch').addEventListener('input', e => buildVarList(e.target.value));
+ $('varSearch').addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+   const first = buildVarList(e.target.value);
+   if (first) first.click();
+  }
+ });
+ document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && getComputedStyle($('varPicker')).display !== 'none') closeVarPicker();
+ });
+ document.addEventListener('click', e => {
+  const p = $('varPicker');
+  if (getComputedStyle(p).display === 'none') return;
+  if (p.contains(e.target)) return;
+  if (e.target.closest && e.target.closest('.varbtn')) return;
+  closeVarPicker(false);
+ }, true);
+ document.addEventListener('scroll', e => {
+  const p = $('varPicker');
+  if (getComputedStyle(p).display === 'none') return;
+  if (e.target && e.target.contains && p.contains(e.target)) return;
+  closeVarPicker(false);
+ }, true);
+ window.addEventListener('resize', () => closeVarPicker(false));
+
+ // ── ${…} buttons wiring (delegated: every .varbtn opens the picker) ──
+ document.addEventListener('click', e => {
+  const btn = e.target.closest && e.target.closest('.varbtn');
+  if (!btn) return;
+  openVarPicker(btn);
+ });
+
+ // ── live validation under path-ish fields ──
+ function _fieldIssues(v, isName) {
+  const s = String(v || '').trim().replace(/\$\{[^}]*\}/g, 'x');
+  if (!s) return [];
+  const out = [];
+  let nonAscii = false;
+  for (let i = 0; i < s.length; i++) { if (s.charCodeAt(i) > 127) { nonAscii = true; break; } }
+  if (nonAscii) out.push('non-ASCII — build paths want ASCII');
+  if (isName && /\s/.test(s)) out.push('spaces — fine on disk, but quote them in hooks and custom tool args');
+  const scan = s.replace(/^[A-Za-z]:[\\/]/, '');
+  const bad = [];
+  for (const ch of scan) { if ('<>:"|?*'.indexOf(ch) >= 0 || ch.charCodeAt(0) < 32) bad.push('"' + ch + '"'); }
+  if (bad.length) out.push('invalid in Windows file names: ' + bad.join(' '));
+  if (isName && /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\.[^.]*)?$/i.test(scan)) out.push('reserved Windows device name');
+  return out;
+ }
+ // Output folder: the lexical half of the host-side checkOutputDir (the disk half — symlinks,
+ // nested repos — runs on Save and in Clean).
+ function _dirIssues(v) {
+  const s = String(v || '').trim().replace(/\\/g, '/');
+  if (!s) return [];
+  const out = [];
+  const hasVar = /\$\{/.test(s);
+  const segs = s.replace(/\$\{[^}]*\}/g, 'x').split('/').filter(Boolean);
+  if (/^([A-Za-z]:)?\//.test(s)) out.push('use a path relative to the project folder');
+  if (!hasVar && segs.every(x => x === '.')) out.push('must be a subfolder, not the project folder itself');
+  if (segs.indexOf('..') >= 0) out.push('".." is not allowed — the output must stay inside the project');
+  if (segs.length && ['.git', '.hg', '.svn', '.bzr', '.vscode', 'src', 'node_modules', 'include', 'lib', 'components'].indexOf(segs[0]) >= 0) out.push('"' + segs[0] + '" cannot be the output folder');
+  return out;
+ }
+ const LIVE_FIELDS = [['name', true], ['output_name', true], ['output_dir', false, true], ['extSdk', false]];
+ function liveCheck(id, isName, isDir) {
+  const el = $(id);
+  if (!el) return;
+  // inputs inside a .path-picker row keep the warning BELOW the row (inside it the box squeezes the input)
+  const host = (el.parentElement && el.parentElement.classList.contains('path-picker')) ? el.parentElement : el;
+  let box = host.nextElementSibling;
+  if (!box || !box.classList || !box.classList.contains('flderr')) {
+   box = document.createElement('div');
+   box.className = 'flderr';
+   host.insertAdjacentElement('afterend', box);
+  }
+  const issues = _fieldIssues(el.value, isName).concat(isDir ? _dirIssues(el.value) : []);
+  box.textContent = issues.length ? '⚠ ' + issues.join(' · ') : '';
+ }
+ function liveCheckAll() { for (const p of LIVE_FIELDS) liveCheck(p[0], p[1], p[2]); }
+ for (const p of LIVE_FIELDS) {
+  const el = $(p[0]);
+  if (el) el.addEventListener('input', () => liveCheck(p[0], p[1], p[2]));
+ }
+
+ // ── Build mode segmented control (mirrors pic.buildMode both ways) ──
+ let buildMode = 'release';
+ function setModeUI(m) {
+  buildMode = (m === 'debug') ? 'debug' : 'release';
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-mode') === buildMode));
+ }
+ document.addEventListener('click', e => {
+  const btn = e.target.closest && e.target.closest('.mode-btn');
+  if (!btn) return;
+  const mode = btn.getAttribute('data-mode');
+  if (mode !== buildMode) vscode.postMessage({ type: 'setBuildMode', mode });
+ });
+
+ // ── load: config → fields (defensive; failures disable Save) ──
+ function loadProj() {
+  if (!proj) return;
+  currentState = proj;
+  $('name').value = typeof proj.name === 'string' ? proj.name : '';
+  $('board').value = typeof proj.board === 'string' ? proj.board : '';
+  $('defines').value = defineLines(proj.defines);
+  $('extSdk').value = extSdk;
+  const b = (proj.build && typeof proj.build === 'object' && !Array.isArray(proj.build)) ? proj.build : {};
+  $('output_name').value = typeof b.output_name === 'string' ? b.output_name : 'firmware';
+  $('output_dir').value = typeof b.output_dir === 'string' ? b.output_dir : '';
+  $('optimization').value = (typeof b.optimization === 'string' ? b.optimization.replace(/^-O/, '') : '');
+  {
+   const opt = $('optimization').value;
+   if (opt && !['', '0', '1', '2', '3', 's'].includes(opt)) {
+    const o = document.createElement('option');
+    o.value = opt;
+    o.textContent = 'raw: -O' + opt + ' (kept as-is)';
+    $('optimization').appendChild(o);
+    $('optimization').value = opt;
+   }
+  }
+  $('gc_sections').checked = b.gc_sections === true;
+  $('lto').checked = b.lto === true;
+  $('c_flags').value = arrLines(b.c_flags);
+  $('cxx_flags').value = arrLines(b.cxx_flags);
+  $('asm_flags').value = arrLines(b.asm_flags);
+  $('link_flags').value = arrLines(b.link_flags);
+  $('extra_flags').value = arrLines(b.extra_flags);
+  $('f_cpu_hz').value = (b.f_cpu_hz === undefined || b.f_cpu_hz === null) ? '' : String(b.f_cpu_hz);
+  const hooks = (b.hooks && typeof b.hooks === 'object' && !Array.isArray(b.hooks)) ? b.hooks : {};
+  for (const h of ['pre_build', 'post_link', 'post_build', 'pre_upload', 'post_upload']) {
+   const hv = hooks[h];
+   const lns = typeof hv === 'string' ? [hv] : (Array.isArray(hv) ? hv.filter(c => typeof c === 'string') : []);
+   $('hook_' + h).value = lns.join('\n');
+  }
+  const u = (proj.upload && typeof proj.upload === 'object' && !Array.isArray(proj.upload)) ? proj.upload : {};
+  const prog = typeof u.programmer === 'string' ? u.programmer : 'ipecmd';
+  buildProgrammerSelect();
+  const sel = $('programmer');
+  sel.value = prog;
+  if (prog && sel.value !== prog) {
+   const o = document.createElement('option');
+   o.value = prog; o.textContent = 'raw: ' + prog + ' (not built-in)';
+   sel.appendChild(o); sel.value = prog;
+  }
+  $('hardware').value = typeof u.hardware === 'string' ? u.hardware : '';
+  $('port').value = typeof u.port === 'string' ? u.port : '';
+  $('uploadTool').value = typeof u.tool === 'string' ? u.tool : '';
+  $('uploadArgs').value = arrLines(u.args);
+  $('eeprom').checked = u.eeprom === true;
+  $('dfp').value = typeof b.dfp === 'string' ? b.dfp : (dfpPath || '');
+  updateBoardInfo();
+  liveCheckAll();
+ }
+
+ // ── collect: the EXACT pic-project.json schema ──
+ function collect() {
+  const hooks = {};
+  for (const h of ['pre_build', 'post_link', 'post_build', 'pre_upload', 'post_upload']) {
+   const items = $('hook_' + h).value.split('\n').map(x => x.trim()).filter(Boolean);
+   if (items.length === 1) hooks[h] = items[0];
+   else if (items.length > 1) hooks[h] = items;
+  }
+  const build = {
+   output_name: val('output_name') || 'firmware',
+   dfp: val('dfp'),
+   optimization: $('optimization').value,
+   f_cpu_hz: null,
+   gc_sections: $('gc_sections').checked,
+   lto: $('lto').checked,
+   c_flags: lines('c_flags'),
+   cxx_flags: lines('cxx_flags'),
+   asm_flags: lines('asm_flags'),
+   link_flags: lines('link_flags'),
+   extra_flags: lines('extra_flags'),
+  };
+  if (val('f_cpu_hz')) {
+   const hz = Number(val('f_cpu_hz'));
+   if (!Number.isSafeInteger(hz) || hz <= 0) throw new Error('Clock frequency must be a positive integer in Hz.');
+   build.f_cpu_hz = hz;
+  }
+  if (val('output_dir')) build.output_dir = val('output_dir');
+  if (Object.keys(hooks).length) build.hooks = hooks;
+  let defines;
+  defines = lines('defines').map(x => {
+   if (!x.startsWith('{')) return x;
+   const d = JSON.parse(x);
+   if (!d || typeof d !== 'object' || Array.isArray(d) || !d.name) throw new Error('Defines JSON entries need a name field.');
+   return d;
+  });
+  return {
+   name: val('name'),
+   board: val('board'),
+   defines: defines,
+   externalSdkPath: val('extSdk'),
+   build: build,
+   upload: {
+    programmer: $('programmer').value,
+    hardware: val('hardware'),
+    port: val('port'),
+    tool: val('uploadTool'),
+    args: lines('uploadArgs'),
+    eeprom: $('eeprom').checked,
+   },
+  };
+ }
+
+ function initAll() {
+  buildProgrammerSelect();
+  buildOptimizationSelect();
+  loadProj();
+ }
+
+ // ── buttons ──
+ $('save').addEventListener('click', () => {
+  if (!initOk) return;
+  let p;
+  try { p = collect(); }
+  catch (e) {
+   const hint = document.querySelector('.save-hint');
+   if (hint) hint.textContent = String(e.message || e);
+   return;
+  }
+  const hint = document.querySelector('.save-hint');
+  if (hint) hint.textContent = 'Saving…';
+  vscode.postMessage({ type: 'save', proj: p });
+ });
+
+ $('openMain').addEventListener('click', () => vscode.postMessage({ type: 'openComponent', name: 'main' }));
+ $('newComp').addEventListener('click', () => vscode.postMessage({ type: 'newComponent' }));
+ $('pickSdk').addEventListener('click', () => vscode.postMessage({ type: 'pickSdkFolder' }));
+ $('clearSdk').addEventListener('click', () => { $('extSdk').value = ''; liveCheck('extSdk', false); });
+ $('pickDfp').addEventListener('click', () => vscode.postMessage({ type: 'pickDfpFolder' }));
+
+ // ── host messages ──
+ window.addEventListener('message', e => {
+  const m = e.data;
+  if (!m || !m.type) return;
+  if (m.type === 'state') {
+   proj = (m.proj && typeof m.proj === 'object' && !Array.isArray(m.proj)) ? m.proj : null;
+   boards = Array.isArray(m.boards) ? m.boards : [];
+   comPort = String(m.comPort || '');
+   extSdk = String(m.extSdk || '');
+   dfpPath = String(m.dfpPath || '');
+   if (m.buildMode) setModeUI(m.buildMode);
+   $('pFile').textContent = m.file || '';
+   try {
+    initAll();
+    setSaveEnabled();
+   } catch (err) {
+    console.error('PIC project editor: init failed', err);
+    setSaveDisabled('Initialization failed — saving is disabled to protect pic-project.json (see the console).');
+    return;
+   }
+   if (!proj) setSaveDisabled('pic-project.json could not be read — saving is disabled to protect it.');
+  } else if (m.type === 'boardsChanged') {
+   if (Array.isArray(m.boards)) {
+    boards = m.boards;
+    updateBoardInfo();
+   }
+  } else if (m.type === 'sdkFolderPicked') {
+   $('extSdk').value = String(m.path || '');
+   liveCheck('extSdk', false);
+  } else if (m.type === 'dfpFolderPicked') {
+   $('dfp').value = String(m.path || '');
+  } else if (m.type === 'buildModeSet') {
+   setModeUI(m.mode);
+  }
+ });
+
+ // ── tooltip edge clamping ──
+ (function () {
+  const M = 8, GAP = 7;
+  const clamp = tip => {
+   const pop = tip.querySelector('.tip-pop');
+   if (!pop) return;
+   pop.style.left = ''; pop.style.right = ''; pop.style.top = '';
+   const b = tip.getBoundingClientRect();
+   const r = pop.getBoundingClientRect();
+   const vw = document.documentElement.clientWidth;
+   const vh = document.documentElement.clientHeight;
+   const w = r.width, h = r.height;
+   const onRight = r.left >= b.left;
+   const roomR = vw - M - (b.right + GAP);
+   const roomL = b.left - GAP - M;
+   let left;
+   if (onRight) {
+    if (w <= roomR) left = b.right + GAP;
+    else if (w <= roomL) left = b.left - GAP - w;
+    else left = roomR >= roomL ? vw - M - w : M;
+   } else {
+    if (w <= roomL) left = b.left - GAP - w;
+    else if (w <= roomR) left = b.right + GAP;
+    else left = roomL >= roomR ? M : vw - M - w;
+   }
+   let top = r.top;
+   if (top + h > vh - M) top = vh - M - h;
+   if (top < M) top = M;
+   pop.style.right = 'auto';
+   pop.style.left = Math.round(left - b.left) + 'px';
+   pop.style.top = Math.round(top - b.top) + 'px';
+  };
+  const release = tip => {
+   const pop = tip.querySelector('.tip-pop');
+   if (pop) { pop.style.left = ''; pop.style.right = ''; pop.style.top = ''; }
+  };
+  document.querySelectorAll('.tip').forEach(tip => {
+   tip.addEventListener('mouseenter', () => clamp(tip));
+   tip.addEventListener('focus', () => clamp(tip));
+   tip.addEventListener('mouseleave', () => release(tip));
+   tip.addEventListener('blur', () => release(tip));
+  });
+  window.addEventListener('resize', () => {
+   document.querySelectorAll('.tip').forEach(tip => {
+    const pop = tip.querySelector('.tip-pop');
+    if (pop && getComputedStyle(pop).display !== 'none') clamp(tip);
+   });
+  });
+ })();
+
+ vscode.postMessage({ type: 'ready' });
+})();
+</script></body></html>

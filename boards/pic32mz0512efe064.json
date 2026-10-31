@@ -1,0 +1,1 @@
+{"name":"PIC32MZ0512EFE064","vendor":"PIC32MZ (32-bit)","toolchain":"xc32","build":{"device":"PIC32MZ0512EFE064","family":"PIC32MZ-EF","extra_flags":[],"memory":{"flash":524288}},"upload":{"protocol":"ipecmd","maximum_size":524288}}

@@ -1,0 +1,1 @@
+{"name":"PIC32CM3204GV00064","vendor":"PIC32CM (32-bit)","toolchain":"xc32","build":{"device":"PIC32CM3204GV00064","family":"PIC32CM-GV","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

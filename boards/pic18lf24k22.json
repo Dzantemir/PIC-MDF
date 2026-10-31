@@ -1,0 +1,1 @@
+{"name":"PIC18LF24K22","vendor":"PIC18F (K-series)","toolchain":"xc8","build":{"device":"PIC18LF24K22","family":"PIC18F-K","extra_flags":[],"memory":{"flash":16384,"ram":768,"eeprom":256}},"upload":{"protocol":"ipecmd","maximum_size":16384}}

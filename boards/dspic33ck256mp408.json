@@ -1,0 +1,1 @@
+{"name":"dsPIC33CK256MP408","vendor":"dsPIC33CK (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CK256MP408","family":"dsPIC33CK-MP","extra_flags":[],"memory":{"flash":262144}},"upload":{"protocol":"ipecmd","maximum_size":262144}}

@@ -1,0 +1,1 @@
+{"name":"dsPIC33AK512MC206","vendor":"dsPIC33AK (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33AK512MC206","family":"dsPIC33AK-MC","extra_flags":[],"memory":{"flash":524288}},"upload":{"protocol":"ipecmd","maximum_size":524288}}

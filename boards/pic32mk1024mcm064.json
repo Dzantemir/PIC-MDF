@@ -1,0 +1,1 @@
+{"name":"PIC32MK1024MCM064","vendor":"PIC32MK (32-bit)","toolchain":"xc32","build":{"device":"PIC32MK1024MCM064","family":"PIC32MK-MC","extra_flags":[],"memory":{"flash":1048576}},"upload":{"protocol":"ipecmd","maximum_size":1048576}}

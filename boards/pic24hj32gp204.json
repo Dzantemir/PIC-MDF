@@ -1,0 +1,1 @@
+{"name":"PIC24HJ32GP204","vendor":"dsPIC33F (16-bit)","toolchain":"xc16","build":{"device":"PIC24HJ32GP204","family":"dsPIC33F-GP-MC","extra_flags":[],"memory":{"flash":32768}},"upload":{"protocol":"ipecmd","maximum_size":32768}}

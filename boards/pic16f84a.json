@@ -1,0 +1,21 @@
+{
+    "name": "PIC16F84A",
+    "vendor": "PIC16 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC16F84A",
+        "family": "mid-range (14-bit)",
+        "f_cpu": "4000000UL",
+        "f_cpu_hz": 4000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 2048,
+            "ram": 68,
+            "eeprom": 64
+        }
+    },
+    "upload": {
+        "maximum_size": 2048,
+        "protocol": "ipecmd"
+    }
+}

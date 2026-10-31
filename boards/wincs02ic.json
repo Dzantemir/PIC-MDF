@@ -1,0 +1,1 @@
+{"name":"WINCS02IC","vendor":"PIC32MZ (32-bit)","toolchain":"xc32","build":{"device":"WINCS02IC","family":"PIC32MZ-W","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

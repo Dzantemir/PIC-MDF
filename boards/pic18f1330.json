@@ -1,0 +1,1 @@
+{"name":"PIC18F1330","vendor":"PIC18F (8-bit)","toolchain":"xc8","build":{"device":"PIC18F1330","family":"PIC18Fxxxx","extra_flags":[],"memory":{"flash":8192,"ram":256,"eeprom":128}},"upload":{"protocol":"ipecmd","maximum_size":8192}}

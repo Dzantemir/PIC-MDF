@@ -1,0 +1,21 @@
+{
+    "name": "PIC18F46K22",
+    "vendor": "PIC18 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC18F46K22",
+        "family": "PIC18 (K22)",
+        "f_cpu": "64000000UL",
+        "f_cpu_hz": 64000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 65536,
+            "ram": 3896,
+            "eeprom": 1024
+        }
+    },
+    "upload": {
+        "maximum_size": 65536,
+        "protocol": "ipecmd"
+    }
+}

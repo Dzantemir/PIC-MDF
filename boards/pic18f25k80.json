@@ -1,0 +1,21 @@
+{
+    "name": "PIC18F25K80",
+    "vendor": "PIC18 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC18F25K80",
+        "family": "PIC18 (K80)",
+        "f_cpu": "64000000UL",
+        "f_cpu_hz": 64000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 32768,
+            "ram": 3648,
+            "eeprom": 1024
+        }
+    },
+    "upload": {
+        "maximum_size": 32768,
+        "protocol": "ipecmd"
+    }
+}

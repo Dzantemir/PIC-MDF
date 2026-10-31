@@ -1,0 +1,1 @@
+{"name":"PIC32CK1025GC01064","vendor":"PIC32C (32-bit)","toolchain":"xc32","build":{"device":"PIC32CK1025GC01064","family":"PIC32CK-GC","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

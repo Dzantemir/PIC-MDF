@@ -1,0 +1,1 @@
+{"name":"PIC16CR54","vendor":"PIC12/16C (8-bit)","toolchain":"xc8","build":{"device":"PIC16CR54","family":"PIC12-16Cxxx","extra_flags":[],"memory":{"flash":1024,"ram":25,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":1024}}

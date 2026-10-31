@@ -1,0 +1,1 @@
+{"name":"PIC24FJ1024GB606","vendor":"PIC24F (16-bit)","toolchain":"xc16","build":{"device":"PIC24FJ1024GB606","family":"PIC24F-GA-GB","extra_flags":[],"memory":{"flash":1048576}},"upload":{"protocol":"ipecmd","maximum_size":1048576}}

@@ -1,0 +1,21 @@
+{
+    "name": "PIC24FJ128GA010",
+    "vendor": "PIC24 (16-bit)",
+    "toolchain": "xc16",
+    "build": {
+        "device": "24FJ128GA010",
+        "family": "PIC24F (16-bit)",
+        "f_cpu": "32000000UL",
+        "f_cpu_hz": 32000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 131072,
+            "ram": 8192,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 131072,
+        "protocol": "ipecmd"
+    }
+}

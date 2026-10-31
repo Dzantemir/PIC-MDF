@@ -1,0 +1,1 @@
+{"name":"PIC18F2539","vendor":"PIC18F (8-bit)","toolchain":"xc8","build":{"device":"PIC18F2539","family":"PIC18Fxxxx","extra_flags":[],"memory":{"flash":24576,"eeprom":256}},"upload":{"protocol":"ipecmd","maximum_size":24576}}

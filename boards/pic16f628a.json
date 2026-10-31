@@ -1,0 +1,21 @@
+{
+    "name": "PIC16F628A",
+    "vendor": "PIC16 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC16F628A",
+        "family": "mid-range (14-bit)",
+        "f_cpu": "4000000UL",
+        "f_cpu_hz": 4000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 4096,
+            "ram": 224,
+            "eeprom": 128
+        }
+    },
+    "upload": {
+        "maximum_size": 4096,
+        "protocol": "ipecmd"
+    }
+}

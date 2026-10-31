@@ -1,0 +1,1 @@
+{"name":"dsPIC33CDV128MC506","vendor":"dsPIC33CD (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33CDV128MC506","family":"dsPIC33CD-MC","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';">
+<title>Component Editor</title>
+<style>
+:root{--bg:var(--vscode-editor-background);--fg:var(--vscode-editor-foreground);--fg2:var(--vscode-descriptionForeground);--ib:var(--vscode-input-background);--if:var(--vscode-input-foreground);--ibd:var(--vscode-input-border,var(--vscode-panel-border,#3e3e42));--bb:var(--vscode-button-background);--bf:var(--vscode-button-foreground);--b2:var(--vscode-button-secondaryBackground,#3a3d41);--bf2:var(--vscode-button-secondaryForeground,#fff);--bd:var(--vscode-widget-border,var(--vscode-panel-border,#3e3e42));--bd2:var(--vscode-panel-border,#3e3e42);--cb:var(--vscode-editorWidget-background,rgba(128,128,128,.04));--code:var(--vscode-textCodeBlock-background,rgba(110,118,129,.12));--accent:var(--vscode-charts-blue,#4daafc);--focus-bd:var(--vscode-focusBorder,#007fd4);--ok:var(--vscode-charts-green,#4ecf8b);--warn:var(--vscode-charts-yellow,#d1b02a);--err:var(--vscode-errorForeground,#e5534b)}
+*{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--fg)}b,strong{font-weight:600}body{font-family:var(--vscode-font-family);font-size:var(--vscode-font-size);padding:18px 20px 86px;max-width:920px;margin:0 auto}
+.page-hd{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--bd2)}.page-hd h1{font-size:18px;font-weight:600;margin:0 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sub{font-size:12px;color:var(--fg2);line-height:1.5}.sub code,.hint code,.save-hint code,.banner code{background:var(--code);padding:1px 4px;border-radius:3px;font-family:var(--vscode-editor-font-family)}
+.badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--code);color:var(--fg2)}.badge.main{background:var(--bb);color:var(--bf)}
+.banner{padding:8px 11px;border-radius:5px;background:var(--code);font-size:12px;line-height:1.5;margin-bottom:12px;border-left:3px solid var(--warn)}.banner:empty{display:none}.banner.err{border-left-color:var(--err)}
+.card{border:1px solid var(--bd);border-radius:8px;margin-bottom:13px;background:var(--cb)}.card-hd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--bd2);background:rgba(128,128,128,.035);font-size:13px;font-weight:600}.card-hd .ico{width:22px;height:22px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;background:var(--code);font-size:12px;font-weight:400;flex:0 0 auto}.card-hd b{font-weight:600}.ct{font-size:11px;font-weight:400;color:var(--fg2)}.card-bd{padding:12px 14px}
+.accent-sources{border-left:3px solid var(--vscode-charts-orange,#d28f1c)}.accent-includes{border-left:3px solid var(--vscode-charts-yellow,#d1b02a)}.accent-requires{border-left:3px solid var(--vscode-charts-cyan,#37b3d2)}.accent-libs{border-left:3px solid var(--vscode-charts-blue,#4daafc)}.accent-general{border-left:3px solid var(--accent)}
+input,textarea{background:var(--ib);color:var(--if);border:1px solid var(--ibd);padding:5px 8px;border-radius:4px;font-size:12px;width:100%;min-width:120px;font-family:var(--vscode-editor-font-family)}input:focus,textarea:focus{outline:none;border-color:var(--focus-bd);box-shadow:0 0 0 1px var(--focus-bd)}textarea{min-height:56px;resize:vertical;line-height:1.5}
+.path-picker{display:flex;gap:9px;align-items:stretch}.path-picker textarea{flex:1;min-width:0}.btncol{display:flex;flex-direction:column;gap:6px;flex:0 0 118px}
+.hint{font-size:11px;color:var(--fg2);margin-top:5px;line-height:1.5}
+button{background:var(--bb);color:var(--bf);border:0;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-family:inherit;white-space:nowrap}button:hover{filter:brightness(1.08)}button:disabled{opacity:.45;cursor:not-allowed}button.sec{background:var(--b2);color:var(--bf2)}button.danger{background:transparent;color:var(--err);border:1px solid var(--err)}
+.checks{display:flex;flex-wrap:wrap;gap:6px 18px}.checks label{display:inline-flex;gap:6px;align-items:center;font-size:12px;cursor:pointer}.checks input{width:14px;min-width:14px}.checks .dis{color:var(--fg2);text-decoration:line-through}
+.prev{margin-top:8px;font-size:11px;color:var(--fg2);line-height:1.6}.prev .ok{color:var(--ok)}.prev .bad{color:var(--err)}.prev code{font-family:var(--vscode-editor-font-family)}
+.libs{margin-top:10px;display:flex;flex-direction:column;gap:8px}.lib{border:1px solid var(--bd2);border-radius:6px;padding:8px 10px;background:rgba(128,128,128,.03)}.lib-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.lib-name{font-family:var(--vscode-editor-font-family);font-size:12px;word-break:break-all}.pill{font-size:10px;font-weight:700;padding:1px 7px;border-radius:9px;letter-spacing:.3px}.pill.ok{background:rgba(78,207,139,.18);color:var(--ok)}.pill.warn{background:rgba(209,176,42,.2);color:var(--warn)}.pill.error{background:rgba(229,83,75,.18);color:var(--err)}
+.lib-meta{font-size:11px;color:var(--fg2);margin-top:4px;line-height:1.5}.lib-warn{font-size:11px;margin-top:3px;line-height:1.5}.lib-warn.error{color:var(--err)}.lib-warn.warn{color:var(--warn)}.lib-warn.info{color:var(--fg2)}
+details.syms{margin-top:4px;font-size:11px;color:var(--fg2)}details.syms summary{cursor:pointer}details.syms code{display:inline-block;margin:1px 6px 1px 0;font-family:var(--vscode-editor-font-family)}
+.save-bar{position:fixed;left:0;right:0;bottom:0;padding:10px 20px;background:var(--vscode-editorWidget-background,var(--bg));border-top:1px solid var(--bd2);display:flex;align-items:center;gap:12px;z-index:100}.save-bar .hint{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55vw}.save-bar button{padding:7px 18px;font-size:13px}.save-bar .sp{flex:1}
+@media(max-width:720px){body{padding:12px 10px 90px}.path-picker{flex-wrap:wrap}.btncol{flex-direction:row;flex:1 1 100%}}
+</style></head><body>
+<div class="page-hd"><h1><span>🧩</span><span id="title">Component</span><span class="badge" id="kindBadge"></span></h1><div class="sub" id="subline"></div></div>
+<div class="banner" id="banner"></div>
+
+<section class="card accent-general" id="cardDesc">
+ <header class="card-hd"><span class="ico">📝</span><b>Description</b><span class="ct">optional · shown in the sidebar tooltip</span></header>
+ <div class="card-bd"><input id="description" placeholder="what this component provides"></div>
+</section>
+
+<section class="card accent-sources">
+ <header class="card-hd"><span class="ico">📄</span><b>Sources</b><span class="ct" id="srcCt">code compiled into the firmware</span></header>
+ <div class="card-bd">
+  <div class="path-picker"><textarea id="sources" spellcheck="false" placeholder="src&#10;extra/util.c&#10;{&quot;path&quot;:&quot;src&quot;,&quot;pattern&quot;:&quot;**/*.c&quot;}"></textarea><div class="btncol"><button type="button" class="sec" data-pick="sources" data-mode="any" title="Browse files or folders">📂 Add…</button></div></div>
+  <div class="hint" id="srcHint">One entry per line, relative to the component folder: a folder (scanned recursively), a single file, or a JSON rule such as <code>{"path":"src","pattern":"**/*.c"}</code>. An empty list means this component contributes no sources (a library-only component).</div>
+  <div class="prev" id="srcPrev"></div>
+ </div>
+</section>
+
+<section class="card accent-includes">
+ <header class="card-hd"><span class="ico">📁</span><b>Include directories</b><span class="ct">header search paths (-I) — visible to the whole project</span></header>
+ <div class="card-bd">
+  <div class="path-picker"><textarea id="includes" spellcheck="false" placeholder="include"></textarea><div class="btncol"><button type="button" class="sec" data-pick="includes" data-mode="folder" title="Browse folders">📂 Add…</button></div></div>
+  <div class="hint">One folder per line, relative to the component folder (or absolute). They are passed to the compiler as <code>-I</code> for every source file of the project.</div>
+  <div class="prev" id="incPrev"></div>
+ </div>
+</section>
+
+<section class="card accent-requires" id="cardReq">
+ <header class="card-hd"><span class="ico">🔗</span><b>Requires</b><span class="ct">components this one depends on</span></header>
+ <div class="card-bd">
+  <div class="checks" id="reqList"></div>
+  <div class="hint">Determines the link order of prebuilt libraries (a component's libraries are placed before the libraries of the components it requires) and is checked for cycles and for disabled components.</div>
+ </div>
+</section>
+
+<section class="card accent-libs" id="cardLibs">
+ <header class="card-hd"><span class="ico">📚</span><b>Prebuilt libraries</b><span class="ct" id="libCt">ready-made static libraries linked into the firmware</span></header>
+ <div class="card-bd">
+  <div class="path-picker"><textarea id="libraries" spellcheck="false" placeholder="lib/libfoo.a&#10;vendor/libs"></textarea><div class="btncol"><button type="button" class="sec" data-pick="libraries" data-mode="file" title="Pick library files">📚 Add library…</button><button type="button" class="sec" data-pick="libraries" data-mode="folder" title="Pick a folder; every library inside is linked">📁 Add folder…</button></div></div>
+  <div class="hint" id="libHint">One entry per line: a library file or a folder (every library inside is linked). Relative to the component folder.</div>
+  <div class="libs" id="libList"></div>
+ </div>
+</section>
+
+<div class="save-bar"><span class="hint save-hint" id="saveHint"></span><span class="sp"></span><button type="button" class="danger" id="del" style="display:none">🗑 Delete component</button><button type="button" class="sec" id="openDir" title="Reveal the component folder in the Explorer">📂 Open folder</button><button type="button" id="save">💾 Save</button></div>
+
+<script>
+(function () {
+ const vscode = acquireVsCodeApi();
+ const $ = id => document.getElementById(id);
+ const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+ let st = null, dirty = false, timer = null, loaded = false;
+
+ function lines(id) { return $(id).value.split(/\r?\n/).map(s => s.trim()).filter(s => s && !s.startsWith('#')); }
+ function ruleLines(id, name) {
+  const out = [];
+  for (const line of lines(id)) {
+   if (line.startsWith('{')) {
+    let v; try { v = JSON.parse(line); } catch (e) { throw new Error(name + ': invalid JSON rule: ' + line); }
+    if (!v || Array.isArray(v) || typeof v !== 'object' || (typeof v.path !== 'string' && !Array.isArray(v.exclude) && !Array.isArray(v.files))) throw new Error(name + ': a JSON rule needs a "path" (or "files" / "exclude")');
+    out.push(v);
+   } else out.push(line);
+  }
+  return out;
+ }
+ function ruleText(v) { return (Array.isArray(v) ? v : []).map(x => typeof x === 'string' ? x : JSON.stringify(x)).join('\n'); }
+ function collect() {
+  const requires = [...document.querySelectorAll('#reqList input:checked')].map(i => i.value);
+  return {
+   description: $('description').value.trim(),
+   sources: ruleLines('sources', 'Sources'),
+   includes: lines('includes'),
+   libraries: lines('libraries'),
+   requires,
+  };
+ }
+ function setDirty(d) {
+  dirty = d;
+  const h = $('saveHint');
+  if (!st) return;
+  h.innerHTML = d ? '● unsaved changes — writes ' + saveTarget() : 'writes ' + saveTarget();
+ }
+ function saveTarget() { return st.kind === 'main' ? '<code>' + esc(st.projFile) + '</code> (the application component)' : '<code>' + esc(st.rel) + '/component.json</code>'; }
+ function schedulePreview() {
+  setDirty(true);
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+   let m; try { m = collect(); } catch (e) { m = null; }
+   if (m) vscode.postMessage({ type: 'preview', manifest: m });
+  }, 350);
+ }
+
+ function render() {
+  const s = st;
+  $('title').textContent = (s.kind === 'main' ? 'Application (main)' : 'Component: ' + s.name);
+  const kb = $('kindBadge');
+  kb.textContent = ({ main: 'main application', local: 'components/', listed: 'external folder', sdk: 'from the external SDK' })[s.kind] || s.kind;
+  kb.className = 'badge' + (s.kind === 'main' ? ' main' : '');
+  $('subline').innerHTML = '<code>' + esc(s.dir) + '</code>' + (s.kind === 'main' ? ' · settings are stored in the project file <code>' + esc(s.projFile) + '</code>' : (s.hasManifest ? ' · <code>component.json</code>' : ' · no <code>component.json</code> yet'));
+  const ban = [];
+  if (s.excluded) ban.push('This component is <b>disabled</b> in the project (unchecked in the sidebar) — it is not built. Re-enable it with its checkbox in the Components group.');
+  if (s.kind !== 'main' && !s.hasManifest) ban.push('No <code>component.json</code>: defaults apply (every source below the folder is built, <code>include</code>/<code>inc</code> are header folders, no libraries). <b>Save</b> creates the manifest with the values below.');
+  if (s.manifestBroken) ban.push('<code>component.json</code> is not valid JSON — ' + esc(s.manifestBroken) + '. Fix the file, or Save to overwrite it with the values below.');
+  $('banner').innerHTML = ban.join('<br>');
+  $('banner').className = 'banner' + (s.manifestBroken ? ' err' : '');
+  $('cardDesc').style.display = s.kind === 'main' ? 'none' : '';
+  const m = s.manifest;
+  $('description').value = m.description || '';
+  $('sources').value = ruleText(m.sources);
+  $('includes').value = ruleText(m.includes);
+  $('libraries').value = ruleText(m.libraries);
+  $('srcHint').innerHTML = esc(s.labels.sourceHint || '') + ' One entry per line, relative to ' + (s.kind === 'main' ? 'the project folder' : 'the component folder') + ': a folder (scanned recursively), a single file, or a JSON rule such as <code>{"path":"src","pattern":"**/*.c"}</code>.' + (s.labels.sourceRuleHint ? ' ' + esc(s.labels.sourceRuleHint) : '') + ' An empty list means no sources (a library-only component).';
+  $('libHint').innerHTML = 'One entry per line: a library file (<code>' + esc(s.labels.libExts) + '</code>) or a folder — every library inside is linked. Relative to ' + (s.kind === 'main' ? 'the project folder' : 'the component folder') + '. ' + esc(s.labels.libHint || '');
+  $('libCt').textContent = 'ready-made ' + s.labels.libExts + ' linked into the firmware — checked against ' + (s.labels.archLabel || 'the project MCU');
+  // requires
+  const rl = $('reqList'); rl.innerHTML = '';
+  const cur = new Set((m.requires || []).map(x => x.toLowerCase()));
+  const others = (s.others || []).filter(o => o.name.toLowerCase() !== s.name.toLowerCase());
+  if (!others.length) rl.innerHTML = '<span class="hint">No other components yet — create one from the Components group in the sidebar.</span>';
+  for (const o of others) {
+   const lab = document.createElement('label');
+   const cb = document.createElement('input'); cb.type = 'checkbox'; cb.value = o.name; cb.checked = cur.has(o.name.toLowerCase());
+   cb.addEventListener('change', () => setDirty(true));
+   const sp = document.createElement('span'); sp.textContent = o.name; if (o.disabled) { sp.className = 'dis'; sp.title = 'disabled in the project'; }
+   lab.appendChild(cb); lab.appendChild(sp); rl.appendChild(lab);
+  }
+  // unknown requires kept as extra (so they are not silently dropped)
+  for (const r of (m.requires || [])) {
+   if (!others.some(o => o.name.toLowerCase() === r.toLowerCase())) {
+    const lab = document.createElement('label');
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.value = r; cb.checked = true; cb.addEventListener('change', () => setDirty(true));
+    const sp = document.createElement('span'); sp.textContent = r + ' (not found)'; sp.style.color = 'var(--err)';
+    lab.appendChild(cb); lab.appendChild(sp); rl.appendChild(lab);
+   }
+  }
+  // buttons
+  $('del').style.display = (s.kind === 'local' || s.kind === 'listed') ? '' : 'none';
+  $('del').textContent = s.kind === 'listed' ? '➖ Remove from project' : '🗑 Delete component';
+  const ro = s.kind === 'sdk';
+  $('save').disabled = ro;
+  if (ro) $('saveHint').textContent = 'components of the external SDK are read-only here';
+  else setDirty(false);
+  if (ro) for (const id of ['sources', 'includes', 'libraries', 'description']) $(id).readOnly = true;
+  renderPreview(s.preview);
+  loaded = true;
+  if (s.focus === 'libraries') { try { $('cardLibs').scrollIntoView({ block: 'start' }); $('libraries').focus(); } catch (e) {} }
+ }
+
+ function renderPreview(p) {
+  if (!p) return;
+  const sp = $('srcPrev');
+  let h = '';
+  if (p.sources) {
+   h += '<span class="' + (p.sources.count ? 'ok' : '') + '">' + p.sources.count + ' source file(s) found</span>';
+   if (p.sources.files && p.sources.files.length) h += ': ' + p.sources.files.slice(0, 6).map(f => '<code>' + esc(f) + '</code>').join(' ') + (p.sources.count > 6 ? ' …' : '');
+   for (const e of (p.sources.errors || [])) h += '<br><span class="bad">✗ ' + esc(e) + '</span>';
+  }
+  sp.innerHTML = h;
+  let ih = '';
+  for (const i of (p.includes || [])) ih += (i.ok ? '<span class="ok">✓</span>' : '<span class="bad">✗ not found:</span>') + ' <code>' + esc(i.entry) + '</code><br>';
+  $('incPrev').innerHTML = ih;
+  const ll = $('libList'); ll.innerHTML = '';
+  for (const e of (p.libs || [])) {
+   if (e.missing) {
+    const d = document.createElement('div'); d.className = 'lib';
+    d.innerHTML = '<div class="lib-top"><span class="pill error">MISSING</span><span class="lib-name">' + esc(e.entry) + '</span></div><div class="lib-warn error">Not found — ' + esc(e.reason || 'check the path') + '</div>';
+    ll.appendChild(d); continue;
+   }
+   if (!e.files.length) {
+    const d = document.createElement('div'); d.className = 'lib';
+    d.innerHTML = '<div class="lib-top"><span class="pill warn">EMPTY</span><span class="lib-name">' + esc(e.entry) + '</span></div><div class="lib-warn warn">The folder contains no ' + esc(st.labels.libExts) + ' libraries.</div>';
+    ll.appendChild(d); continue;
+   }
+   for (const f of e.files) {
+    const i = f.info || {};
+    const d = document.createElement('div'); d.className = 'lib';
+    const verdict = i.verdict || 'ok';
+    const t = i.totals || { text: 0, data: 0, bss: 0 };
+    let meta = [];
+    if (i.format) meta.push(i.format === 'ar' ? 'archive' : i.format === 'rel' ? 'SDCC object' : i.format === 'elf' ? 'ELF object' : i.format);
+    if (i.objects !== undefined) meta.push(i.objects + ' object(s)');
+    if (i.arch) meta.push(esc(i.arch));
+    meta.push('code ' + fmt(t.text) + ' · data ' + fmt(t.data) + (t.bss ? ' · bss ' + fmt(t.bss) : ''));
+    if (i.fileSize) meta.push('file ' + fmt(i.fileSize));
+    let html = '<div class="lib-top"><span class="pill ' + verdict + '">' + (verdict === 'ok' ? 'OK' : verdict === 'warn' ? 'CHECK' : 'PROBLEM') + '</span><span class="lib-name">' + esc(f.rel) + '</span></div>';
+    html += '<div class="lib-meta">' + meta.join(' · ') + '</div>';
+    for (const w of (i.warnings || [])) html += '<div class="lib-warn ' + esc(w.level) + '">' + (w.level === 'error' ? '✗ ' : w.level === 'warn' ? '⚠ ' : 'ℹ ') + esc(w.text) + '</div>';
+    if (i.undefinedExternal && i.undefinedExternal.length) {
+     html += '<details class="syms"><summary>' + i.undefinedExternal.length + ' symbol(s) the library expects from the rest of the firmware (or the C runtime)</summary>' + i.undefinedExternal.slice(0, 60).map(s => '<code>' + esc(s) + '</code>').join('') + (i.undefinedExternal.length > 60 ? ' …' : '') + '</details>';
+    }
+    d.innerHTML = html; ll.appendChild(d);
+   }
+  }
+ }
+ function fmt(n) { n = Number(n) || 0; return n >= 1024 ? (n / 1024).toFixed(1) + ' KB' : n + ' B'; }
+
+ for (const id of ['sources', 'includes', 'libraries', 'description']) $(id).addEventListener('input', schedulePreview);
+ document.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => vscode.postMessage({ type: 'pick', field: b.getAttribute('data-pick'), mode: b.getAttribute('data-mode') })));
+ $('save').addEventListener('click', () => {
+  let m; try { m = collect(); } catch (e) { $('saveHint').textContent = String(e.message || e); return; }
+  $('saveHint').textContent = 'Saving…';
+  vscode.postMessage({ type: 'save', manifest: m });
+ });
+ $('del').addEventListener('click', () => vscode.postMessage({ type: 'delete' }));
+ $('openDir').addEventListener('click', () => vscode.postMessage({ type: 'openFolder' }));
+ window.addEventListener('message', e => {
+  const m = e.data; if (!m || !m.type) return;
+  if (m.type === 'state') { st = m.state; render(); }
+  else if (m.type === 'preview') renderPreview(m.preview);
+  else if (m.type === 'picked') {
+   const el = $(m.field); if (!el) return;
+   const cur = lines(m.field); const seen = new Set(cur);
+   for (const p of (m.paths || [])) if (!seen.has(p)) { cur.push(p); seen.add(p); }
+   // keep JSON rules that contain braces intact: lines() preserved them verbatim
+   el.value = cur.join('\n'); schedulePreview();
+  } else if (m.type === 'saved') { setDirty(false); }
+  else if (m.type === 'error') { $('saveHint').textContent = m.message || 'Error'; }
+ });
+ vscode.postMessage({ type: 'ready' });
+})();
+</script></body></html>

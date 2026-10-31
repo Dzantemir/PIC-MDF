@@ -1,0 +1,1 @@
+{"name":"PIC32MM0032GPL028","vendor":"PIC32MM (32-bit)","toolchain":"xc32","build":{"device":"PIC32MM0032GPL028","family":"PIC32MM-GPL-0XX","extra_flags":[],"memory":{"flash":32768}},"upload":{"protocol":"ipecmd","maximum_size":32768}}

@@ -1,0 +1,1 @@
+{"name":"dsPIC33FJ128MC202","vendor":"dsPIC33F (16-bit)","toolchain":"xc16","build":{"device":"dsPIC33FJ128MC202","family":"dsPIC33F-GP-MC","extra_flags":[],"memory":{"flash":131072}},"upload":{"protocol":"ipecmd","maximum_size":131072}}

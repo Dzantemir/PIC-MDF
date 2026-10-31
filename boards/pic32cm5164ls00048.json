@@ -1,0 +1,21 @@
+{
+    "name": "PIC32CM5164LS00048",
+    "vendor": "PIC32CM (32-bit)",
+    "toolchain": "xc32",
+    "build": {
+        "device": "32CM5164LS00048",
+        "family": "PIC32CM (ARM Cortex-M0+)",
+        "f_cpu": "48000000UL",
+        "f_cpu_hz": 48000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 524288,
+            "ram": 131072,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 524288,
+        "protocol": "ipecmd"
+    }
+}

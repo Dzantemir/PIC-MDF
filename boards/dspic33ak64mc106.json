@@ -1,0 +1,1 @@
+{"name":"dsPIC33AK64MC106","vendor":"dsPIC33AK (DSC)","toolchain":"xcdsc","build":{"device":"dsPIC33AK64MC106","family":"dsPIC33AK-MC","extra_flags":[],"memory":{"flash":65536}},"upload":{"protocol":"ipecmd","maximum_size":65536}}

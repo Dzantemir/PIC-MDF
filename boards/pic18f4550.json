@@ -1,0 +1,21 @@
+{
+    "name": "PIC18F4550 (USB)",
+    "vendor": "PIC18 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC18F4550",
+        "family": "PIC18 (16-bit core)",
+        "f_cpu": "48000000UL",
+        "f_cpu_hz": 48000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 32768,
+            "ram": 2048,
+            "eeprom": 256
+        }
+    },
+    "upload": {
+        "maximum_size": 32768,
+        "protocol": "ipecmd"
+    }
+}

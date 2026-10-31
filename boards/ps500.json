@@ -1,0 +1,1 @@
+{"name":"PS500","vendor":"PIC18C (8-bit)","toolchain":"xc8","build":{"device":"PS500","family":"PIC18Cxxx","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

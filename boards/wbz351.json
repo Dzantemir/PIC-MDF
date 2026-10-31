@@ -1,0 +1,1 @@
+{"name":"WBZ351","vendor":"PIC32C (32-bit)","toolchain":"xc32","build":{"device":"WBZ351","family":"PIC32CX-BZ3","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

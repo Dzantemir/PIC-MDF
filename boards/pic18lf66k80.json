@@ -1,0 +1,1 @@
+{"name":"PIC18LF66K80","vendor":"PIC18F (K-series)","toolchain":"xc8","build":{"device":"PIC18LF66K80","family":"PIC18F-K","extra_flags":[],"memory":{"flash":65536,"eeprom":1024}},"upload":{"protocol":"ipecmd","maximum_size":65536}}

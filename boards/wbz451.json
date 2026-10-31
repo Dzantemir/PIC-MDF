@@ -1,0 +1,1 @@
+{"name":"WBZ451","vendor":"PIC32C (32-bit)","toolchain":"xc32","build":{"device":"WBZ451","family":"PIC32CX-BZ","extra_flags":[]},"upload":{"protocol":"ipecmd"}}

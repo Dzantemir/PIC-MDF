@@ -1,0 +1,1 @@
+{"name":"dsPIC33FJ09GS302","vendor":"dsPIC33F (16-bit)","toolchain":"xc16","build":{"device":"dsPIC33FJ09GS302","family":"dsPIC33F-GS","extra_flags":[],"memory":{"flash":9216}},"upload":{"protocol":"ipecmd","maximum_size":9216}}

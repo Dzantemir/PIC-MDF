@@ -1,0 +1,21 @@
+{
+    "name": "PIC16F1503",
+    "vendor": "PIC16 (8-bit)",
+    "toolchain": "xc8",
+    "build": {
+        "device": "PIC16F1503",
+        "family": "enhanced mid-range (14-bit)",
+        "f_cpu": "32000000UL",
+        "f_cpu_hz": 32000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 4096,
+            "ram": 128,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 4096,
+        "protocol": "ipecmd"
+    }
+}

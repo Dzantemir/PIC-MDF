@@ -1,0 +1,1 @@
+{"name":"PIC18C801","vendor":"PIC18C (8-bit)","toolchain":"xc8","build":{"device":"PIC18C801","family":"PIC18Cxxx","extra_flags":[],"memory":{"flash":2097152,"ram":1536,"eeprom":0}},"upload":{"protocol":"ipecmd","maximum_size":2097152}}

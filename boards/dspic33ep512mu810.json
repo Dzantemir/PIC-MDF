@@ -1,0 +1,21 @@
+{
+    "name": "dsPIC33EP512MU810",
+    "vendor": "dsPIC33E (16-bit)",
+    "toolchain": "xc16",
+    "build": {
+        "device": "33EP512MU810",
+        "family": "dsPIC33E (16-bit DSC)",
+        "f_cpu": "70000000UL",
+        "f_cpu_hz": 70000000,
+        "extra_flags": [],
+        "memory": {
+            "flash": 524288,
+            "ram": 53248,
+            "eeprom": 0
+        }
+    },
+    "upload": {
+        "maximum_size": 524288,
+        "protocol": "ipecmd"
+    }
+}

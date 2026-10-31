@@ -1,0 +1,1 @@
+{"name":"PIC32MX210F016B","vendor":"PIC32MX (32-bit)","toolchain":"xc32","build":{"device":"PIC32MX210F016B","family":"PIC32MX","extra_flags":[],"memory":{"flash":16384}},"upload":{"protocol":"ipecmd","maximum_size":16384}}

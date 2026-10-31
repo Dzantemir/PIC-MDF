@@ -1,0 +1,1 @@
+{"name":"PIC32MX350F128L","vendor":"PIC32MX (32-bit)","toolchain":"xc32","build":{"device":"PIC32MX350F128L","family":"PIC32MX","extra_flags":[],"memory":{"flash":131072}},"upload":{"protocol":"ipecmd","maximum_size":131072}}

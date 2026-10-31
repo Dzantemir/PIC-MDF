@@ -1,0 +1,1 @@
+{"name":"PIC16LF84A","vendor":"PIC16F (8-bit)","toolchain":"xc8","build":{"device":"PIC16LF84A","family":"PIC16Fxxx","extra_flags":[],"memory":{"flash":2048,"ram":68,"eeprom":64}},"upload":{"protocol":"ipecmd","maximum_size":2048}}
